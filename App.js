@@ -5,34 +5,16 @@ import BottomTabsNavigation from './navigation/BottomTabsNavigation';
 import { NavigationContainer } from '@react-navigation/native';
 
 export default function App() {
-  const [refreshing, setRefreshing] = useState(false); // Estado para controlar el estado de actualización
 
-  const handleRefresh = () => {
-    // Aquí puedes realizar las operaciones de actualización de datos
-    setRefreshing(true);
-
-    // Después de que las operaciones de actualización hayan terminado, establece refreshing en false para indicar que la actualización ha finalizado.
-    setTimeout(() => {
-      setRefreshing(false);
-    }, 2000);
-  };
 
   return (
     <View style={styles.container}>
       <NavigationContainer>
-        <ScrollView
-          contentContainerStyle={styles.scrollContainer}
-          refreshControl={ // Agrega el RefreshControl al ScrollView
-            <RefreshControl
-              refreshing={refreshing}
-              onRefresh={handleRefresh}
-            />
-          }
-        >
-          <View style={styles.contentContainer}>
-            <BottomTabsNavigation />
-          </View>
-        </ScrollView>
+
+        <View style={styles.contentContainer}>
+          <BottomTabsNavigation />
+        </View>
+
       </NavigationContainer>
       <StatusBar style="auto" />
     </View>

@@ -43,22 +43,30 @@ export default function Actividad() {
                 <Text>Actividad</Text>
 
                 <TouchableOpacity onPress={goToActividades}>
-                    <Text>Ver más</Text>
+                    <Text style={styles.verMas}>Ver más</Text>
                 </TouchableOpacity>
             </View>
-            {actividades.map((actividad) => (
+            {actividades.slice(0, 6).map((actividad) => (
                 <View key={actividad.id} style={styles.actividadContainer}>
-                    <MaterialCommunityIcons name="bank-transfer" size={24} color="black" />
+                    <MaterialCommunityIcons style={styles.icon} name="bank-transfer" size={24} color="black" />
 
                     <View style={styles.deRow}>
                         <Text style={styles.Date}>{new Date(actividad.createdAt).toLocaleString()}</Text>
-                        <Text style={styles.descripcion}>{actividad.descripcion}</Text>
+                        {actividad.descripcion.length > 16 ? (
+                            <Text style={styles.descripcion}>{actividad.descripcion.slice(0, 16)}..</Text>
+                        ) : (
+                            <Text style={styles.descripcion}>{actividad.descripcion}</Text>
+                        )}
                     </View>
 
-                    <Text style={{ color: actividad.categoria === 'Ingreso' ? 'green' : 'red' }}>$ {actividad.monto}</Text>
+                    <Text style={{ color: actividad?.categoria === 'Ingreso' ? 'green' : 'red', }}>
+                        {actividad.categoria === 'Egreso' && '- '}
+                        $ {actividad.monto.toLocaleString().slice(0, 14)}
+                    </Text>
 
                 </View>
             ))}
+
         </ScrollView>
     );
 }
@@ -70,21 +78,36 @@ const styles = StyleSheet.create({
 
     },
     actividadContainer: {
-
-        borderColor: 'gray',
-        padding: 10,
+        borderBottomWidth: 0.3,
+        borderColor: 'rgba(0, 0, 0, 0.1)',
+        padding: 5,
         marginBottom: 10,
         flexDirection: 'row',
         gap: 20,
-        alignItems: 'center'
     },
+
     deFlex: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        padding: 10,
+        padding: 5,
     },
     deRow: {
         flexDirection: 'column',
 
     },
+
+    icon: {
+
+        backgroundColor: 'rgba(2, 42, 155, 0.2)',
+        borderRadius: 8,
+        padding: 4
+    },
+    Date: {
+        fontSize: 12
+    },
+    verMas: {
+        color: '#022a9b',
+        fontSize: 13
+    }
+
 });

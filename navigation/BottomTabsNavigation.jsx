@@ -42,7 +42,7 @@ function BottomTabsNavigation() {
                     fontSize: 11,
                     marginBottom: 3,
                 },
-                activeTintColor: '#D71920',
+                activeTintColor: '#022a9b',
                 inactiveTintColor: 'rgba(0, 0, 0, 0.8)',
 
 
@@ -58,7 +58,7 @@ function BottomTabsNavigation() {
                         position: 'absolute',
 
                     },
-                    activeTintColor: '#D71920',
+                    activeTintColor: '#022a9b',
                     inactiveTintColor: '#9B9B9B',
                     headerShown: false,
                     tabBarLabel: 'Home',
@@ -77,7 +77,7 @@ function BottomTabsNavigation() {
                         elevation: 0,
                         position: 'absolute',
                     },
-                    activeTintColor: '#D71920',
+                    activeTintColor: '#022a9b',
                     inactiveTintColor: '#9B9B9B',
                     headerShown: false,
                     tabBarLabel: 'Categorias',
@@ -99,10 +99,10 @@ function BottomTabsNavigation() {
                                 borderRadius: Platform.OS === "ios" ? 25 : 30,
                                 position: 'absolute',
                                 bottom: 10,
-                                backgroundColor: '#D71920',
+                                backgroundColor: '#022a9b',
                                 alignItems: 'center',
                                 justifyContent: 'center',
-                                shadowColor: '#D71920',
+                                shadowColor: '#022a9b',
                                 shadowOffset: { width: 10, height: 20 },
                                 shadowOpacity: 10.25,
                                 shadowRadius: 300,
@@ -118,7 +118,7 @@ function BottomTabsNavigation() {
                         elevation: 0,
                         position: 'absolute',
                     },
-                    activeTintColor: '#D71920',
+                    activeTintColor: '#022a9b',
                     inactiveTintColor: '#9B9B9B',
                     headerShown: false,
                 }}
@@ -134,12 +134,12 @@ function BottomTabsNavigation() {
                         elevation: 0,
                         position: 'absolute',
                     },
-                    activeTintColor: '#D71920',
+                    activeTintColor: '#022a9b',
                     inactiveTintColor: '#9B9B9B',
                     headerShown: false,
                     tabBarLabel: 'Profile',
                     tabBarIcon: ({ color }) => (
-                        <MaterialIcons name="favorite" size={24} color={color} />
+                        <MaterialCommunityIcons name="bank-transfer" size={26} color={color} />
                     ),
                 }} />
 
@@ -152,7 +152,7 @@ function BottomTabsNavigation() {
                         elevation: 0,
                         position: 'absolute',
                     },
-                    activeTintColor: '#D71920',
+                    activeTintColor: '#022a9b',
                     inactiveTintColor: '#9B9B9B',
                     headerShown: false,
                     tabBarLabel: 'Details',

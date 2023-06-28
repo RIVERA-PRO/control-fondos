@@ -4,6 +4,12 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
 import { CheckBox } from 'react-native-elements';
 import { Picker } from '@react-native-picker/picker';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import { Ionicons } from '@expo/vector-icons';
+import { MaterialIcons } from '@expo/vector-icons';
+import { Feather } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons';
 export default function Actividades() {
     const navigation = useNavigation();
     const isFocused = useIsFocused();
@@ -161,104 +167,151 @@ export default function Actividades() {
     const handleBuscar = (texto) => {
         setFiltroBusqueda(texto);
     };
+
     return (
         <ScrollView contentContainerStyle={styles.scrollContainer2}>
 
-            <TextInput
-                style={styles.inputBuscar}
-                placeholder="Buscar..."
-                value={filtroBusqueda}
-                onChangeText={handleBuscar}
-            />
-            <View style={styles.filtroCategoriaContainer}>
+            {actividades.length > 0 ? (
+                <View>
+                    <View style={styles.filtros}>
+                        <View style={styles.searchInputContainer}>
+                            <Icon name="search" size={20} color="#999" style={styles.searchIcon} />
+                            <TextInput
+                                style={styles.inputBuscar}
+                                placeholder="Buscar..."
+                                value={filtroBusqueda}
+                                onChangeText={handleBuscar}
+                            />
+                        </View>
+                        <View style={styles.filtroCategoriaContainer}>
+                            <Picker
+                                selectedValue={filtroCategoria}
+                                onValueChange={handleCategoriaChange}
+                                style={styles.pickerCategoria}
+                            >
 
-                <Picker
-                    selectedValue={filtroCategoria}
-                    onValueChange={handleCategoriaChange}
-                    style={styles.pickerCategoria}
-                >
-                    <Picker.Item label="Categorías" value="" />
-                    <Picker.Item label="Ingreso" value="Ingreso" />
-                    <Picker.Item label="Egreso" value="Egreso" />
-                </Picker>
-            </View>
+                                <Picker.Item label="Categorías" value="" />
+                                <Picker.Item label="Ingreso" value="Ingreso" />
+                                <Picker.Item label="Egreso" value="Egreso" />
+                            </Picker>
 
-            {actividades.length > 0 && (
+
+                        </View>
+
+                    </View>
+
+                    <TouchableOpacity
+                        style={styles.button}
+                        onPress={eliminarActividades}
+                    >
+                        <Text style={styles.buttonText}>Eliminar actividades</Text>
+                    </TouchableOpacity>
+
+
+                    <View style={styles.containerActividad}>
+                        {filtrarActividades().map((actividad) => (
+                            <View>
+
+
+                                <View style={styles.deFlex}>
+                                    <TouchableOpacity
+                                        style={styles.icson}
+                                        onPress={() => {
+                                            verDetalle(actividad.id);
+                                        }}
+                                    >
+
+                                        <Text style={styles.detalle} > Ver Detalles</Text>
+
+
+                                    </TouchableOpacity>
+                                    <View style={styles.deFlex2}>
+                                        <TouchableOpacity
+                                            style={styles.iscon}
+                                            onPress={() => eliminarActividad(actividad.id)}
+                                        >
+                                            <MaterialIcons name="delete" size={18} color="#F63E7B" />
+                                        </TouchableOpacity>
+                                        <TouchableOpacity
+                                            style={styles.iscon}
+                                            onPress={() => abrirModalEdicion(actividad.id, actividad.monto, actividad.descripcion)}
+                                        >
+                                            <Feather name="edit" size={16} color="#022a9b" />
+                                        </TouchableOpacity>
+                                    </View>
+
+
+
+                                </View>
+                                <View key={actividad.id} style={styles.actividadContainer}>
+                                    <MaterialCommunityIcons style={styles.icon} name="bank-transfer" size={24} color="black" />
+
+                                    <View style={styles.deRow}>
+                                        <Text style={styles.Date}>{new Date(actividad.createdAt).toLocaleString()}</Text>
+                                        {actividad.descripcion.length > 16 ? (
+                                            <Text style={styles.descripcion}>{actividad.descripcion.slice(0, 16)}..</Text>
+                                        ) : (
+                                            <Text style={styles.descripcion}>{actividad.descripcion}</Text>
+                                        )}
+                                    </View>
+                                    <Text style={{ color: actividad?.categoria === 'Ingreso' ? 'green' : 'red' }}>
+                                        {actividad.categoria === 'Egreso' && '- '}
+                                        $ {actividad.monto.toLocaleString().slice(0, 13)}
+                                    </Text>
+
+                                </View>
+
+                            </View>
+                        ))}
+                    </View>
+
+
+
+                    <Modal
+                        visible={editModalVisible}
+                        animationType="slide"
+                        onRequestClose={() => setEditModalVisible(false)}
+                    >
+                        <View style={styles.modalContainer}>
+                            <Text>Editar actividad</Text>
+                            <TextInput
+                                value={editMonto}
+                                onChangeText={setEditMonto}
+                                placeholder="Monto"
+                                keyboardType="numeric"
+                                style={styles.input}
+                            />
+                            <TextInput
+                                value={editDescripcion}
+                                onChangeText={setEditDescripcion}
+                                placeholder="Descripción"
+                                style={styles.input}
+                            />
+                            <TouchableOpacity
+                                style={styles.button}
+                                onPress={() => guardarEdicion()}
+                            >
+                                <Text style={styles.buttonText}>Guardar</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                style={styles.button}
+                                onPress={() => setEditModalVisible(false)}
+                            >
+                                <Text style={styles.buttonText}>Cancelar</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </Modal>
+                </View>
+
+            ) : (
                 <TouchableOpacity
                     style={styles.button}
-                    onPress={eliminarActividades}
+
                 >
-                    <Text style={styles.buttonText}>Eliminar actividades</Text>
+                    <Text style={styles.buttonText}>Agregar actividades</Text>
                 </TouchableOpacity>
             )}
 
-            <Text>Actividad</Text>
-            {filtrarActividades().map((actividad) => (
-                <View key={actividad.id} style={styles.actividadContainer}>
-                    <Text>{new Date(actividad.createdAt).toLocaleString()}</Text>
-                    <Text>Categoría: {actividad.categoria}</Text>
-                    <Text style={{ color: actividad.categoria === 'Ingreso' ? 'green' : 'red' }}>$ {actividad.monto}</Text>
-                    <Text>Descripción: {actividad.descripcion}</Text>
-                    <TouchableOpacity
-                        style={styles.button}
-                        onPress={() => eliminarActividad(actividad.id)}
-                    >
-                        <Text style={styles.buttonText}>Eliminar</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        style={styles.button}
-                        onPress={() => abrirModalEdicion(actividad.id, actividad.monto, actividad.descripcion)}
-                    >
-                        <Text style={styles.buttonText}>Editar</Text>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity
-                        style={styles.button}
-                        onPress={() => {
-                            verDetalle(actividad.id);
-                        }}
-                    >
-                        <Text style={styles.buttonText}>Ver detalle</Text>
-                    </TouchableOpacity>
-                </View>
-            ))}
-
-
-
-            <Modal
-                visible={editModalVisible}
-                animationType="slide"
-                onRequestClose={() => setEditModalVisible(false)}
-            >
-                <View style={styles.modalContainer}>
-                    <Text>Editar actividad</Text>
-                    <TextInput
-                        value={editMonto}
-                        onChangeText={setEditMonto}
-                        placeholder="Monto"
-                        keyboardType="numeric"
-                        style={styles.input}
-                    />
-                    <TextInput
-                        value={editDescripcion}
-                        onChangeText={setEditDescripcion}
-                        placeholder="Descripción"
-                        style={styles.input}
-                    />
-                    <TouchableOpacity
-                        style={styles.button}
-                        onPress={() => guardarEdicion()}
-                    >
-                        <Text style={styles.buttonText}>Guardar</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        style={styles.button}
-                        onPress={() => setEditModalVisible(false)}
-                    >
-                        <Text style={styles.buttonText}>Cancelar</Text>
-                    </TouchableOpacity>
-                </View>
-            </Modal>
 
 
         </ScrollView>
@@ -268,9 +321,20 @@ export default function Actividades() {
 const styles = StyleSheet.create({
     scrollContainer2: {
         flexGrow: 1,
-        paddingTop: 100,
-        backgroundColor: '#0000',
 
+
+
+    },
+    containerActividad: {
+        padding: 10,
+        backgroundColor: '#fff',
+        borderRadius: 20,
+
+        shadowColor: 'rgba(0, 0, 0, 0.8)',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.25,
+        shadowRadius: 3,
+        elevation: 1,
     },
     actividadContainer: {
         borderWidth: 1,
@@ -280,13 +344,84 @@ const styles = StyleSheet.create({
     },
     button: {
         marginTop: 10,
-        backgroundColor: 'blue',
+
         padding: 10,
         alignItems: 'center',
     },
     buttonText: {
-        color: 'white',
+        color: '#022a9b',
         fontSize: 16,
         fontWeight: 'bold',
     },
+    filtros: {
+        backgroundColor: '#022a9b',
+        paddingTop: 80,
+        width: '100%',
+        gap: 20,
+        justifyContent: 'center',
+
+    },
+    searchInputContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        borderRadius: 16,
+        backgroundColor: '#fff',
+        paddingHorizontal: 10,
+        marginBottom: 10,
+        margin: 15,
+        padding: 5
+    },
+    inputBuscar: {
+        padding: 3,
+        width: '90%',
+
+    },
+    searchIcon: {
+        marginRight: 10,
+
+    },
+    actividadContainer: {
+        borderBottomWidth: 0.3,
+        borderColor: 'rgba(0, 0, 0, 0.1)',
+        padding: 5,
+        marginBottom: 10,
+        flexDirection: 'row',
+        gap: 20,
+
+    },
+
+    deFlex: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        padding: 5,
+    },
+    deRow: {
+        flexDirection: 'column',
+
+    },
+
+    icon: {
+        backgroundColor: 'rgba(2, 42, 155, 0.2)',
+        borderRadius: 8,
+        padding: 4
+    },
+    Date: {
+        fontSize: 12
+    },
+    deFlex2: {
+        flexDirection: 'row',
+        justifyContent: 'flex-end',
+        gap: 20
+    },
+
+    detalle: {
+        color: "#022a9b",
+        fontSize: 13
+    },
+    pickerCategoria: {
+        backgroundColor: '#fff',
+
+    }
+
+
 });

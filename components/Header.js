@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { View, StyleSheet, Image, Text, TouchableOpacity, Modal } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, StyleSheet, Image, Text, TouchableOpacity, Modal, } from 'react-native';
 import logo from '../assets/logo.png';
 import { useNavigation } from '@react-navigation/native';
 import image from '../assets/Cloud.png'
@@ -9,10 +9,12 @@ import { EvilIcons } from '@expo/vector-icons';
 import { Linking } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { LinearGradient } from 'expo-linear-gradient';
 export default function Header() {
 
     const [isModalVisible, setModalVisible] = useState(false);
     const [name, setName] = useState('');
+    const [greeting, setGreeting] = useState('');
     const toggleModal = () => {
         setModalVisible(!isModalVisible);
     };
@@ -66,16 +68,28 @@ export default function Header() {
             console.error('Error removing name:', error);
         }
     };
+    useEffect(() => {
+        const currentDate = new Date();
+        const currentHour = currentDate.getHours();
+
+        if (currentHour >= 6 && currentHour < 12) {
+            setGreeting('Buenos días');
+        } else if (currentHour >= 12 && currentHour < 20) {
+            setGreeting('Buenas tardes');
+        } else {
+            setGreeting('Buenas noches');
+        }
+    }, []);
     return (
+
         <View style={styles.container}>
             <TouchableOpacity onPress={toggleModal}>
                 <View style={styles.logoContainer} >
                     <View style={styles.logoContainer} >
                         <Image source={logo} style={styles.logo} />
-                        <Text style={styles.logoText}>Fitness Cloud</Text>
+                        <Text style={styles.logoText}>{greeting}</Text>
                     </View>
-
-                    <EvilIcons name="navicon" size={24} color="black" />
+                    <EvilIcons name="navicon" size={24} color="#ffff" />
                 </View>
             </TouchableOpacity>
             <Modal
@@ -117,10 +131,7 @@ export default function Header() {
                                 <MaterialIcons name="logout" size={24} color="black" />
                                 <Text style={styles.buttonText}>Cerrar</Text>
                             </TouchableOpacity>
-                            <TouchableOpacity title="Remover" onPress={handleRemoveName} >
-                                <MaterialIcons name="logout" size={24} color="black" />
-                                <Text style={styles.buttonText}>Remover</Text>
-                            </TouchableOpacity>
+
                             <Text style={styles.text}>Contacto del desarrollador</Text>
                             <View style={styles.social}>
                                 <TouchableOpacity onPress={openLinkedInProfile} style={styles.btnNav}>
@@ -143,6 +154,7 @@ export default function Header() {
                 </View>
             </Modal>
         </View>
+
     );
 }
 
@@ -154,7 +166,7 @@ const getCurrentDate = () => {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: '#0080ff',
+        backgroundColor: '#022a9b',
         paddingHorizontal: 10,
         flexDirection: 'column',
         padding: 20,
@@ -174,21 +186,17 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        gap: 5
+        gap: 5,
+        padding: 2,
     },
     logo: {
-        width: 25,
-        height: 25,
-        borderRadius: 100,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.25,
-        shadowRadius: 3,
-        elevation: 5,
+        width: 23,
+        height: 23,
+
 
     },
     logoText: {
-        color: '#000',
+        color: '#fff',
         fontSize: 17,
         fontWeight: 'bold',
     },

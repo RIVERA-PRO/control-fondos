@@ -55,6 +55,7 @@ export default function Home() {
 
             <ScrollView contentContainerStyle={styles.scrollContainer}>
 
+
                 <View style={styles.buttonContainer}>
                     <View style={styles.buttonBtns}>
                         <TouchableOpacity
@@ -71,6 +72,7 @@ export default function Home() {
                         </TouchableOpacity>
                     </View>
                 </View>
+
                 <Saldo />
 
                 <Animated.View style={[styles.componentContainer, { opacity: homeOpacity, transform: [{ translateY: homeTranslateY }] }]}>
@@ -80,6 +82,7 @@ export default function Home() {
                     {showActividad && <HomeComponent />}
                 </Animated.View>
             </ScrollView>
+
         </View>
     );
 }
@@ -88,14 +91,16 @@ const styles = StyleSheet.create({
     scrollContainer: {
         flexGrow: 1,
         height: '120%',
-        marginTop: 80
+        marginTop: 80,
+
     },
     scrollViewHome: {
         flex: 1,
         gap: 30,
     },
     buttonContainer: {
-        backgroundColor: '#0080ff',
+        backgroundColor: '#022a9b',
+
         padding: 20,
         borderBottomLeftRadius: 20,
         borderBottomRightRadius: 20,
@@ -104,29 +109,30 @@ const styles = StyleSheet.create({
 
     },
     buttonBtns: {
-        backgroundColor: '#000',
-        borderRadius: 10,
-        padding: 6,
+        backgroundColor: 'rgba(0, 0, 0, 0.1)',
+        borderRadius: 20,
+        padding: 5,
         flexDirection: 'row',
         justifyContent: 'space-between',
         width: '100%'
     },
     button: {
-        paddingVertical: 10,
-        paddingHorizontal: 20,
-        borderRadius: 10,
-        backgroundColor: '#567',
+        paddingVertical: 8,
+        paddingHorizontal: 35,
+        borderRadius: 20,
+
 
     },
     activeButton: {
-        backgroundColor: 'red',
+        backgroundColor: '#022a9b',
+
     },
     buttonText: {
-        color: 'white',
+        color: 'rgba(255, 255, 255, 0.9)',
         fontWeight: 'bold',
     },
     activeButtonText: {
-        color: 'black',
+        color: '#fff'
     },
     componentContainer: {
         padding: 10,
