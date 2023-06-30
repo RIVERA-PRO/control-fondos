@@ -68,23 +68,7 @@ function BottomTabsNavigation() {
                 }}
             />
 
-            < Tab.Screen name="Categorias"
-                component={Categorias}
-                options={{
-                    tabBarStyle: {
-                        backgroundColor: '#ffff',
-                        height: 53,
-                        elevation: 0,
-                        position: 'absolute',
-                    },
-                    activeTintColor: '#022a9b',
-                    inactiveTintColor: '#9B9B9B',
-                    headerShown: false,
-                    tabBarLabel: 'Categorias',
-                    tabBarIcon: ({ color }) => (
-                        <MaterialIcons name="fitness-center" size={25} color={color} />
-                    ),
-                }} />
+
 
             <Tab.Screen
                 name="Mas"

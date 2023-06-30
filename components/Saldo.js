@@ -76,15 +76,15 @@ const styles = StyleSheet.create({
         height: 100,
         marginTop: 20,
         margin: 10,
-        borderRadius: 20,
+        borderRadius: 8,
         padding: 10,
         backgroundColor: '#fff',
-        borderRadius: 20,
+        borderRadius: 8,
         shadowColor: 'rgba(0, 0, 0, 0.8)',
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.25,
         shadowRadius: 3,
-        elevation: 1,
+        elevation: 5,
 
 
     },

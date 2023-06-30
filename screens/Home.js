@@ -92,6 +92,7 @@ const styles = StyleSheet.create({
         flexGrow: 1,
         height: '120%',
         marginTop: 80,
+        backgroundColor: '#fff',
 
     },
     scrollViewHome: {
@@ -120,8 +121,6 @@ const styles = StyleSheet.create({
         paddingVertical: 8,
         paddingHorizontal: 35,
         borderRadius: 20,
-
-
     },
     activeButton: {
         backgroundColor: '#022a9b',
@@ -137,7 +136,7 @@ const styles = StyleSheet.create({
     componentContainer: {
         padding: 10,
         backgroundColor: '#fff',
-        borderRadius: 20,
+        borderRadius: 8,
         margin: 10,
         opacity: 0,
         transform: [{ translateY: 100 }],
@@ -145,6 +144,6 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.25,
         shadowRadius: 3,
-        elevation: 1,
+        elevation: 5,
     },
 });

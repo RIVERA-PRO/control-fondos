@@ -171,7 +171,7 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         padding: 20,
         height: 120,
-        paddingTop: 40,
+        paddingTop: 60,
         justifyContent: 'center',
         borderRadius: 16,
         width: '100%',
