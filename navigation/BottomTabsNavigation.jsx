@@ -32,10 +32,10 @@ function BottomTabsNavigation() {
                     bottonm: 25,
                     left: 20,
                     right: 20,
-                    borderTopColor: 'tranparent',
+
                     borderRadius: 15,
                     height: 56,
-                    elevation: 0,
+
 
                 },
                 labelStyle: {
@@ -43,7 +43,7 @@ function BottomTabsNavigation() {
                     marginBottom: 3,
                 },
                 activeTintColor: '#022a9b',
-                inactiveTintColor: 'rgba(0, 0, 0, 0.8)',
+                inactiveTintColor: 'rgba(0, 0, 0, 0.6)',
 
 
             }}>
@@ -52,10 +52,11 @@ function BottomTabsNavigation() {
                 component={Home}
                 options={{
                     tabBarStyle: {
-                        backgroundColor: '#ffff',
+                        backgroundColor: '#fff',
                         height: 53,
                         elevation: 0,
                         position: 'absolute',
+
 
                     },
                     activeTintColor: '#022a9b',

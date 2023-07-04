@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
         flexGrow: 1,
         height: '120%',
         marginTop: 80,
-        backgroundColor: '#fff',
+        backgroundColor: '#f9f9f9',
 
     },
     scrollViewHome: {
@@ -103,10 +103,10 @@ const styles = StyleSheet.create({
         backgroundColor: '#022a9b',
 
         padding: 20,
-        borderBottomLeftRadius: 20,
-        borderBottomRightRadius: 20,
+
         marginTop: 20,
         width: '100%',
+        height: 150
 
     },
     buttonBtns: {
@@ -137,13 +137,13 @@ const styles = StyleSheet.create({
         padding: 10,
         backgroundColor: '#fff',
         borderRadius: 8,
-        margin: 10,
+        margin: 15,
         opacity: 0,
         transform: [{ translateY: 100 }],
         shadowColor: 'rgba(0, 0, 0, 0.8)',
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.25,
         shadowRadius: 3,
-        elevation: 5,
+        elevation: 3,
     },
 });

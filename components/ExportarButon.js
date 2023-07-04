@@ -8,7 +8,7 @@ import * as FileSystem from 'expo-file-system';
 import * as Sharing from 'expo-sharing';
 import XLSX from 'xlsx';
 
-export default function Actividad() {
+export default function ExportarButon() {
     const isFocused = useIsFocused();
     const [actividades, setActividades] = useState([]);
     const navigation = useNavigation();
@@ -26,15 +26,13 @@ export default function Actividad() {
             const actividadesGuardadas = await AsyncStorage.getItem('actividades');
             if (actividadesGuardadas) {
                 const actividadesParseadas = JSON.parse(actividadesGuardadas);
-                const actividadesInvertidas = actividadesParseadas.reverse(); // Invertir el orden de las actividades
-                console.log(actividadesInvertidas);
-                setActividades(actividadesInvertidas);
+                console.log(actividadesGuardadas)
+                setActividades(actividadesParseadas);
             }
         } catch (error) {
             console.log('Error al obtener las actividades:', error);
         }
     };
-
     const exportarActividades = async () => {
         try {
             // Obtener las actividades de AsyncStorage
@@ -116,129 +114,55 @@ export default function Actividad() {
         }
     };
 
-    const goToMas = () => {
-        navigation.navigate('Mas');
 
-    };
 
     if (actividades.length === 0) {
         return (
-            <View style={styles.scrollContainerSinActividad}>
+            <View style={styles.scrollContainer2}>
                 <Text>No hay actividades</Text>
-                <TouchableOpacity
-                    style={styles.Agregar}
-                    onPress={goToMas}
-                >
-                    <Text style={styles.buttosnText}>Agregar </Text>
-                </TouchableOpacity>
+            </View>
+        );
+    }
+
+
+
+    if (actividades.length === 0) {
+        return (
+            <View style={styles.scrollContainer2}>
+                <Text>No hay actividades</Text>
             </View>
         );
     }
 
     return (
-        <ScrollView contentContainerStyle={styles.scrollContainer2}>
-            <View style={styles.deFlex}>
-                <Text>Actividad</Text>
+        <View contentContainerStyle={styles.scrollexportarButon}>
 
-                <TouchableOpacity onPress={goToActividades}>
-                    <Text style={styles.verMas}>Ver más</Text>
-                </TouchableOpacity>
 
-            </View>
-            {actividades.slice(0, 6).map((actividad) => (
-                <View key={actividad.id} style={styles.actividadContainer}>
-                    <MaterialCommunityIcons style={styles.icon} name="bank-transfer" size={24} color='#022a9b' />
+            <TouchableOpacity style={styles.exportarButon} onPress={exportarActividades}>
 
-                    <View style={styles.deRow}>
-                        <Text style={styles.Date}>{new Date(actividad.createdAt).toLocaleString()}</Text>
-                        {actividad.descripcion.length > 16 ? (
-                            <Text style={styles.descripcion}>{actividad.descripcion.slice(0, 16)}..</Text>
-                        ) : (
-                            <Text style={styles.descripcion}>{actividad.descripcion}</Text>
-                        )}
-                    </View>
+                <MaterialCommunityIcons name="file-excel" size={16} color="#fff" />
+            </TouchableOpacity>
 
-                    <View style={styles.monto}>
-                        <Text style={{ color: actividad?.categoria === 'Ingreso' ? 'green' : 'red' }}>
-                            {actividad.categoria === 'Egreso'}
-                            $ {actividad.monto.toLocaleString().slice(0, 14)}
-                        </Text>
-                    </View>
-                </View>
-            ))}
 
-        </ScrollView>
+        </View>
     );
 }
 const styles = StyleSheet.create({
-    scrollContainerSinActividad: {
-        flexGrow: 1,
-        paddingTop: 10,
-        height: 375,
-        justifyContent: 'center',
-        alignItems: 'center'
-
-
+    scrollexportarButon: {
+        backgroundColor: 'gren',
     },
-    scrollContainer2: {
-        flexGrow: 1,
-        paddingTop: 10,
-
-
-    },
-    actividadContainer: {
-        borderBottomWidth: 0.3,
-        borderColor: 'rgba(0, 0, 0, 0.1)',
-        padding: 5,
-        marginBottom: 10,
-        flexDirection: 'row',
-        gap: 20,
-    },
-
-    deFlex: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        padding: 5,
-    },
-    deRow: {
-        flexDirection: 'column',
-
-    },
-
-    icon: {
-
-        backgroundColor: 'rgba(2, 42, 155, 0.2)',
-        borderRadius: 8,
-        padding: 4
-    },
-    descripcion: {
-        fontSize: 14,
-        color: 'rgba(0, 0, 0, 0.6)',
-        fontWeight: '600'
-    },
-    Date: {
-        color: 'rgba(0, 0, 0, 0.6)',
-        fontSize: 13
-    },
-    monto: {
-        marginLeft: 20
-    },
-    verMas: {
-        color: '#022a9b',
-        fontSize: 13
-    },
-    Agregar: {
-        backgroundColor: '#022a9b',
+    exportarButon: {
+        backgroundColor: 'green',
+        width: 40,
+        height: 40,
         borderRadius: 100,
-        textAlign: 'center',
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: 110,
         padding: 4,
         gap: 5,
-        marginTop: 20
+        textAlign: 'center',
+        justifyContent: 'center',
+        alignItems: 'center'
     },
-    buttosnText: {
+    exportarText: {
         color: '#fff'
     }
 

@@ -10,6 +10,7 @@ import {
     Animated
 
 } from 'react-native';
+import { Picker } from '@react-native-picker/picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Dialog } from "react-native-popup-dialog";
 import Header from '../components/Header';
@@ -28,6 +29,10 @@ export default function Mas() {
     const [actividadTranslateY] = useState(new Animated.Value(100));
     const [showHomeComponent, setShowHomeComponent] = useState(true);
     const [showActividad, setShowActividad] = useState(false);
+    const [tipos, setTipos] = useState(['Efectivo', 'Tarjeta']);
+    const [tipo, setTipo] = useState('');
+
+
     useEffect(() => {
         animateComponent(showHomeComponent, homeOpacity, homeTranslateY);
         animateComponent(showActividad, actividadOpacity, actividadTranslateY);
@@ -67,10 +72,12 @@ export default function Mas() {
             const actividad = {
                 id: new Date().getTime().toString(),
                 categoria,
+                tipo: tipo,
                 monto: parseFloat(monto),
                 descripcion,
                 createdAt: new Date(),
             };
+
 
             let actividades = await AsyncStorage.getItem('actividades');
             actividades = actividades ? JSON.parse(actividades) : [];
@@ -135,6 +142,21 @@ export default function Mas() {
                     {showHomeComponent && formularioActual === 'Ingreso' && (
                         <View style={styles.form}>
 
+
+                            <View style={styles.inputPicker}>
+                                <MaterialIcons name="credit-card" size={20} color='rgba(0, 0, 0, 0.3)' style={styles.Icon} />
+                                <Picker
+                                    style={styles.input}
+                                    selectedValue={tipo}
+                                    onValueChange={(itemValue) => setTipo(itemValue)}
+                                >
+                                    {tipos.map((t, index) => (
+                                        <Picker.Item key={index} label={t} value={t} style={styles.picker} />
+                                    ))}
+                                </Picker>
+
+                            </View>
+
                             <View style={styles.inputsFlex}>
                                 <FontAwesome name="dollar" size={20} color='rgba(0, 0, 0, 0.3)' style={styles.Icon} />
                                 <TextInput
@@ -165,6 +187,20 @@ export default function Mas() {
                     {showActividad && formularioActual === 'Egreso' && (
                         <View style={styles.form}>
 
+                            <View style={styles.inputPicker}>
+                                <MaterialIcons name="credit-card" size={20} color='rgba(0, 0, 0, 0.3)' style={styles.Icon} />
+                                <Picker
+                                    style={styles.input}
+                                    selectedValue={tipo}
+                                    onValueChange={(itemValue) => setTipo(itemValue)}
+
+                                >
+                                    {tipos.map((t, index) => (
+                                        <Picker.Item key={index} label={t} value={t} style={styles.picker} />
+                                    ))}
+                                </Picker>
+
+                            </View>
                             <View style={styles.inputsFlex}>
                                 <FontAwesome name="dollar" size={20} color='rgba(0, 0, 0, 0.3)' style={styles.Icon} />
                                 <TextInput
@@ -256,6 +292,11 @@ const styles = StyleSheet.create({
         marginTop: 20,
         width: '100%',
     },
+    picker: {
+        fontSize: 13,
+        width: '90%',
+
+    },
     input: {
         paddingHorizontal: 10,
         width: '90%'
@@ -303,6 +344,17 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         padding: 10
 
+    },
+    inputPicker: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        borderRadius: 16,
+        paddingHorizontal: 10,
+        marginBottom: 10,
+        width: '100%',
+        backgroundColor: ' rgba(211, 211, 211, 0.3)',
+        borderRadius: 20,
+        padding: 0
     },
     Icon: {
         width: 30

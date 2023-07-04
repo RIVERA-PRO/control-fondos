@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, Modal, TouchableOpacity } from 'react-native';
 import { useRoute, useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { AntDesign } from '@expo/vector-icons'
 import { MaterialIcons } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
-
+import { Picker } from '@react-native-picker/picker';
+import { Dialog } from "react-native-popup-dialog";
 
 export default function Detail() {
     const route = useRoute();
@@ -14,17 +15,24 @@ export default function Detail() {
     const [descripcion, setDescripcion] = useState(actividad.descripcion);
     const [modalVisible, setModalVisible] = useState(false);
     const navigation = useNavigation();
+    const [tipo, setTipo] = useState(actividad.tipo);
+    const [showAlert, setShowAlert] = useState(false);
+    const [showAlertError, setShowAlertError] = useState(false);
+
 
     const handleEditar = async () => {
         try {
+            if (monto.trim() === '' || descripcion.trim() === '') {
+                console.log('Todos los campos son requeridos');
+                setShowAlertError(true);
+                return;
+            }
+
             // Obtener las actividades almacenadas
             const actividadesGuardadas = await AsyncStorage.getItem('actividades');
             if (actividadesGuardadas) {
                 const actividadesParseadas = JSON.parse(actividadesGuardadas);
-                if (!monto || !descripcion) {
-                    throw new Error('El monto y la descripción son obligatorios');
-                    console.log('error')
-                }
+
                 // Encontrar la actividad correspondiente y actualizar los valores
                 const actividadesActualizadas = actividadesParseadas.map((act) => {
                     if (act.id === actividad.id) {
@@ -32,6 +40,7 @@ export default function Detail() {
                             ...act,
                             monto: parseFloat(monto),
                             descripcion,
+                            tipo,
                         };
                     }
                     return act;
@@ -39,16 +48,18 @@ export default function Detail() {
 
                 // Guardar las actividades actualizadas en AsyncStorage
                 await AsyncStorage.setItem('actividades', JSON.stringify(actividadesActualizadas));
-                // Regresar a la pantalla anterior
 
+
+
+                // Regresar a la pantalla anterior
+                navigation.navigate('Actividades');
             }
-            navigation.navigate('Actividades');
         } catch (error) {
             console.log('Error al editar la actividad:', error);
         }
-
-
     };
+
+
     const goToActividades = () => {
         navigation.navigate('Actividades');
 
@@ -74,6 +85,12 @@ export default function Detail() {
         // Regresar a la pantalla anterior
         navigation.goBack();
     };
+    useEffect(() => {
+        // Actualizar los valores iniciales de monto y descripcion cuando se cargue la actividad
+        setMonto(actividad.monto.toString());
+        setDescripcion(actividad.descripcion);
+        setTipo(actividad.tipo);
+    }, [actividad]);
 
     return (
         <View style={styles.container}>
@@ -103,18 +120,42 @@ export default function Detail() {
 
             <View style={styles.containerDetail}>
                 <View style={styles.deFlex}>
-                    <MaterialIcons name="category" size={20} color="black" />
-                    <Text>{actividad?.categoria}</Text>
+                    <View style={styles.deFlex2}>
+                        <MaterialIcons name="category" style={styles.Icon} size={20} color="#022a9b" />
+                        <Text>Categoria:</Text>
+                    </View>
+                    <View style={styles.deFlex2}>
+                        <Text>{actividad?.categoria}</Text>
+                    </View>
                 </View>
                 <View style={styles.deFlex}>
-                    <MaterialIcons name="date-range" size={20} color="black" />
-                    <Text>{new Date(actividad.createdAt).toLocaleString()}</Text>
+                    <View style={styles.deFlex2}>
+                        <MaterialIcons name="date-range" style={styles.Icon} size={20} color="#022a9b" />
+                        <Text>Fecha:</Text>
+                    </View>
+                    <View style={styles.deFlex2}>
+                        <Text>{new Date(actividad.createdAt).toLocaleString()}</Text>
+                    </View>
                 </View>
                 <View style={styles.deFlex}>
-                    <MaterialIcons name="description" size={20} color="black" />
-                    <Text>{actividad?.descripcion}</Text>
-                </View>
+                    <View style={styles.deFlex2}>
+                        <MaterialIcons name="description" style={styles.Icon} size={20} color="#022a9b" />
+                        <Text>Descripcion:</Text>
+                    </View>
+                    <View style={styles.deFlex2}>
+                        <Text>{actividad?.descripcion}</Text>
+                    </View>
 
+                </View>
+                <View style={styles.deFlex}>
+                    <View style={styles.deFlex2}>
+                        <MaterialIcons name="credit-card" size={20} color="#022a9b" style={styles.Icon} />
+                        <Text>Tipo:</Text>
+                    </View>
+                    <View style={styles.deFlex2}>
+                        <Text>{actividad?.tipo}</Text>
+                    </View>
+                </View>
 
 
                 <View style={styles.deFlexButon}>
@@ -137,10 +178,13 @@ export default function Detail() {
 
                     </View>
                     <View style={styles.modalContent}>
-                        <View style={styles.inputsFlex}>
-                            <FontAwesome name="dollar" size={20} color='rgba(0, 0, 0, 0.3)' style={styles.Icon} />
-                            <TextInput
 
+
+
+                        <View style={styles.inputsFlex}>
+                            <FontAwesome name="dollar" size={20} color='rgba(0, 0, 0, 0.3)' />
+                            <TextInput
+                                value={monto}
                                 onChangeText={(value) => setMonto(value)}
                                 placeholder="Monto"
                                 keyboardType="numeric"
@@ -148,10 +192,10 @@ export default function Detail() {
                             />
                         </View>
                         <View style={styles.inputsFlex}>
-                            <MaterialIcons name="description" size={20} color='rgba(0, 0, 0, 0.3)' style={styles.Icon} />
+                            <MaterialIcons name="description" size={20} color='rgba(0, 0, 0, 0.3)' />
 
                             <TextInput
-
+                                value={descripcion}
                                 onChangeText={(value) => setDescripcion(value)}
                                 placeholder="Descripción"
                                 style={styles.inputEdit}
@@ -176,6 +220,25 @@ export default function Detail() {
                     </View>
                 </View>
             </Modal>
+            <Dialog
+                visible={showAlert}
+                onTouchOutside={() => setShowAlert(false)}
+
+            >
+                <View style={styles.agregado}>
+                    <Text>¡Actividad Editada!</Text>
+                </View>
+            </Dialog>
+
+
+            <Dialog
+                visible={showAlertError}
+                onTouchOutside={() => setShowAlertError(false)}
+            >
+                <View style={styles.agregado}>
+                    <Text>Todos los campos son requeridos! </Text>
+                </View>
+            </Dialog>
         </View>
     );
 }
@@ -226,15 +289,25 @@ const styles = StyleSheet.create({
         elevation: 5,
     },
 
-
+    inputEdit: {
+        width: '90%',
+        marginLeft: 10
+    },
     deFlex: {
         flexDirection: 'row',
         alignItems: 'center',
+        justifyContent: 'space-between',
         gap: 10,
         marginTop: 15,
         borderBottomWidth: 0.3,
         borderColor: 'rgba(0, 0, 0, 0.2)',
         padding: 10
+    },
+    deFlex2: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        gap: 10,
     },
     deFlexButon: {
         flexDirection: 'row',
@@ -306,5 +379,14 @@ const styles = StyleSheet.create({
     },
     modalContent: {
         padding: 20
-    }
+    },
+    Icon: {
+        backgroundColor: 'rgba(2, 42, 155, 0.2)',
+        borderRadius: 8,
+        padding: 4
+    },
+    agregado: {
+        padding: 20,
+
+    },
 })

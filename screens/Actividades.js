@@ -13,6 +13,8 @@ import { AntDesign } from '@expo/vector-icons'
 import { Octicons } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
 import filtro from '../assets/filtro.png'
+import ExportarButon from '../components/ExportarButon';
+
 export default function Actividades() {
     const navigation = useNavigation();
     const isFocused = useIsFocused();
@@ -40,12 +42,15 @@ export default function Actividades() {
             const actividadesGuardadas = await AsyncStorage.getItem('actividades');
             if (actividadesGuardadas) {
                 const actividadesParseadas = JSON.parse(actividadesGuardadas);
-                setActividades(actividadesParseadas);
+                const actividadesInvertidas = actividadesParseadas.reverse(); // Invertir el orden de las actividades
+                console.log(actividadesInvertidas);
+                setActividades(actividadesInvertidas);
             }
         } catch (error) {
             console.log('Error al obtener las actividades:', error);
         }
     };
+
 
     const verDetalle = (id) => {
         const actividadSeleccionada = actividades.find((actividad) => actividad.id === id);
@@ -179,10 +184,7 @@ export default function Actividades() {
         navigation.navigate('Mas');
 
     };
-    const goToActividades = () => {
-        navigation.navigate('Actividades');
 
-    };
     return (
         <ScrollView contentContainerStyle={styles.scrollContainer2}>
 
@@ -227,17 +229,20 @@ export default function Actividades() {
                     )}
                     <View style={styles.deFlexActividades}>
                         <Text style={styles.buttonLength}> Actividades: {actividades.length}</Text>
+                        <ExportarButon />
                         <TouchableOpacity
+                            style={styles.iconDeleteAll}
                             onPress={eliminarActividades}
                         >
-                            <MaterialIcons name="delete" size={18} color="#F63E7B" />
+                            <Text style={styles.Text}>Borrar</Text>
+                            <MaterialIcons name="delete" size={18} color="#fff" />
                         </TouchableOpacity>
                     </View>
 
 
 
 
-                    <View style={styles.containerActividad}>
+                    <ScrollView style={styles.containerActividad}>
                         {filtrarActividades().length > 0 ? (
                             filtrarActividades().map((actividad) => (
                                 <View key={actividad.id}>
@@ -272,7 +277,7 @@ export default function Actividades() {
                                             style={styles.icon}
                                             name="bank-transfer"
                                             size={24}
-                                            color="black"
+                                            color='#022a9b'
                                         />
                                         <View style={styles.deRow}>
                                             <Text style={styles.Date}>
@@ -284,14 +289,12 @@ export default function Actividades() {
                                                 <Text style={styles.descripcion}>{actividad.descripcion}</Text>
                                             )}
                                         </View>
-                                        <Text
-                                            style={{
-                                                color: actividad?.categoria === 'Ingreso' ? 'green' : 'red',
-                                            }}
-                                        >
-                                            {actividad.categoria === 'Egreso' && '- '}
-                                            $ {actividad.monto.toLocaleString().slice(0, 13)}
-                                        </Text>
+                                        <View style={styles.monto}>
+                                            <Text style={{ color: actividad?.categoria === 'Ingreso' ? 'green' : 'red' }}>
+                                                {actividad.categoria === 'Egreso'}
+                                                $ {actividad.monto.toLocaleString().slice(0, 14)}
+                                            </Text>
+                                        </View>
                                     </View>
                                 </View>
                             ))
@@ -301,7 +304,7 @@ export default function Actividades() {
 
                             </View>
                         )}
-                    </View>
+                    </ScrollView>
 
                     <Modal
                         visible={editModalVisible}
@@ -356,6 +359,7 @@ export default function Actividades() {
                             </View>
                         </View>
                     </Modal>
+
                 </View>
 
             ) : (
@@ -366,12 +370,15 @@ export default function Actividades() {
                         </TouchableOpacity>
 
                     </View>
-                    <TouchableOpacity
-                        style={styles.Agregar}
-                        onPress={goToMas}
-                    >
-                        <Text style={styles.buttosnText}>Agregar actividades</Text>
-                    </TouchableOpacity>
+                    <View style={styles.noHay}>
+                        <Text style={styles.noHayText}>No Hay Actividades</Text>
+                        <TouchableOpacity
+                            style={styles.Agregar}
+                            onPress={goToMas}
+                        >
+                            <Text style={styles.buttosnText}>Agregar</Text>
+                        </TouchableOpacity>
+                    </View>
                 </View>
             )}
 
@@ -394,10 +401,10 @@ const styles = StyleSheet.create({
     scrollContainer2: {
         flexGrow: 1,
         backgroundColor: '#fff',
+
     },
     containerActividad: {
         padding: 10,
-
     },
     actividadContainer: {
         borderWidth: 1,
@@ -439,7 +446,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         gap: 20,
-        padding: 10,
+
         height: 180,
         marginTop: -20
 
@@ -469,12 +476,13 @@ const styles = StyleSheet.create({
     },
     actividadContainer: {
         borderBottomWidth: 0.3,
-        borderColor: 'rgba(0, 0, 0, 0.1)',
+        borderColor: 'rgba(0, 0, 0, 0.2)',
         padding: 5,
         marginBottom: 10,
         flexDirection: 'row',
         gap: 20,
-
+        paddingLeft: 10,
+        paddingRight: 10
     },
     imgFiltro: {
         width: 25,
@@ -486,6 +494,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         padding: 5,
+        paddingLeft: 10,
+        paddingRight: 10
     },
     deRow: {
         flexDirection: 'column',
@@ -495,10 +505,20 @@ const styles = StyleSheet.create({
     icon: {
         backgroundColor: 'rgba(2, 42, 155, 0.2)',
         borderRadius: 8,
-        padding: 4
+        padding: 4,
+
     },
     Date: {
-        fontSize: 12
+        color: 'rgba(0, 0, 0, 0.6)',
+        fontSize: 13
+    },
+    monto: {
+        marginLeft: 20
+    },
+    descripcion: {
+        fontSize: 14,
+        color: 'rgba(0, 0, 0, 0.6)',
+        fontWeight: '600'
     },
     deFlex2: {
         flexDirection: 'row',
@@ -525,10 +545,18 @@ const styles = StyleSheet.create({
         borderRadius: 30,
         marginTop: -25,
         backgroundColor: '#fff',
-        paddingTop: 40
+        paddingTop: 30
     },
     buttonLength: {
-        color: "#022a9b",
+        color: "#FFF",
+        backgroundColor: '#022a9b',
+        borderRadius: 100,
+        textAlign: 'center',
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: 120,
+        padding: 5,
+        gap: 5
     },
     deFlexButon: {
         flexDirection: 'row',
@@ -588,11 +616,43 @@ const styles = StyleSheet.create({
 
     },
     pickerCategoria: {
-
         color: '#fff',
         marginBottom: 30,
 
     },
+    iconDeleteAll: {
+        backgroundColor: '#F63E7B',
+        borderRadius: 100,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: 120,
+        padding: 5,
+        gap: 5
+    },
+    Text: {
+        color: '#fff'
+    },
+    Agregar: {
+        backgroundColor: '#022a9b',
+        borderRadius: 100,
+        textAlign: 'center',
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: 110,
+        padding: 4,
+        gap: 5,
+        marginTop: 20
+    },
+    buttosnText: {
+        color: '#fff'
+    },
+    noHay: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 200
+    }
+
 
 
 
