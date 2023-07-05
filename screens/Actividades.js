@@ -14,7 +14,7 @@ import { Octicons } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
 import filtro from '../assets/filtro.png'
 import ExportarButon from '../components/ExportarButon';
-
+import { LinearGradient } from 'expo-linear-gradient';
 export default function Actividades() {
     const navigation = useNavigation();
     const isFocused = useIsFocused();
@@ -43,7 +43,7 @@ export default function Actividades() {
             if (actividadesGuardadas) {
                 const actividadesParseadas = JSON.parse(actividadesGuardadas);
                 const actividadesInvertidas = actividadesParseadas.reverse(); // Invertir el orden de las actividades
-                console.log(actividadesInvertidas);
+                // console.log(actividadesInvertidas);
                 setActividades(actividadesInvertidas);
             }
         } catch (error) {
@@ -190,46 +190,48 @@ export default function Actividades() {
 
             {actividades.length > 0 ? (
                 <View>
+                    <LinearGradient colors={['#1FC2D7', '#CB6CE6',]} style={styles.container} start={{ x: 0, y: 0 }}
+                        end={{ x: 1, y: 0 }}>
+                        <View style={styles.headerAtras} >
+                            <TouchableOpacity style={styles.atras} onPress={goToHome}>
+                                <AntDesign name="arrowleft" size={24} color="#fff" />
+                            </TouchableOpacity>
 
-                    <View style={styles.headerAtras} >
-                        <TouchableOpacity style={styles.atras} onPress={goToHome}>
-                            <AntDesign name="arrowleft" size={24} color="#fff" />
-                        </TouchableOpacity>
-
-                    </View>
-
-                    <View style={styles.filtros}>
-
-                        <View style={styles.searchInputContainer}>
-                            <Icon name="search" size={20} color="#999" style={styles.searchIcon} />
-                            <TextInput
-                                style={styles.inputBuscar}
-                                placeholder="Buscar..."
-                                value={filtroBusqueda}
-                                onChangeText={handleBuscar}
-                            />
                         </View>
-                        <TouchableOpacity style={styles.buttonFiltro} onPress={() => setMostrarFiltro(!mostrarFiltro)}>
-                            {/* <Octicons name="filter" size={24} color="#fff" /> */}
-                            <Image source={filtro} style={styles.imgFiltro} />
-                        </TouchableOpacity>
-                    </View>
-                    {mostrarFiltro && (
-                        <View style={styles.filtroCategoriaContainer}>
-                            <Picker
-                                selectedValue={filtroCategoria}
-                                onValueChange={handleCategoriaChange}
-                                style={styles.pickerCategoria}
-                            >
-                                <Picker.Item label="Categorías" value="" />
-                                <Picker.Item label="Ingreso" value="Ingreso" />
-                                <Picker.Item label="Egreso" value="Egreso" />
-                            </Picker>
+
+                        <View style={styles.filtros}>
+
+                            <View style={styles.searchInputContainer}>
+                                <Icon name="search" size={20} color="#999" style={styles.searchIcon} />
+                                <TextInput
+                                    style={styles.inputBuscar}
+                                    placeholder="Buscar..."
+                                    value={filtroBusqueda}
+                                    onChangeText={handleBuscar}
+                                />
+                            </View>
+                            <TouchableOpacity style={styles.buttonFiltro} onPress={() => setMostrarFiltro(!mostrarFiltro)}>
+                                {/* <Octicons name="filter" size={24} color="#fff" /> */}
+                                <Image source={filtro} style={styles.imgFiltro} />
+                            </TouchableOpacity>
                         </View>
-                    )}
+                        {mostrarFiltro && (
+                            <View style={styles.filtroCategoriaContainer}>
+                                <Picker
+                                    selectedValue={filtroCategoria}
+                                    onValueChange={handleCategoriaChange}
+                                    style={styles.pickerCategoria}
+                                >
+                                    <Picker.Item label="Categorías" value="" />
+                                    <Picker.Item label="Ingreso" value="Ingreso" />
+                                    <Picker.Item label="Egreso" value="Egreso" />
+                                </Picker>
+                            </View>
+                        )}
+                    </LinearGradient>
                     <View style={styles.deFlexActividades}>
-                        <Text style={styles.buttonLength}> Actividades: {actividades.length}</Text>
                         <ExportarButon />
+                        <Text style={styles.buttonLength}>{actividades.length}</Text>
                         <TouchableOpacity
                             style={styles.iconDeleteAll}
                             onPress={eliminarActividades}
@@ -262,13 +264,13 @@ export default function Actividades() {
                                                     abrirModalEdicion(actividad.id, actividad.monto, actividad.descripcion)
                                                 }
                                             >
-                                                <Feather name="edit" size={16} color="#022a9b" />
+                                                <Feather name="edit" size={16} color="#1FC2D7" />
                                             </TouchableOpacity>
                                             <TouchableOpacity
                                                 style={styles.iscon}
                                                 onPress={() => eliminarActividad(actividad.id)}
                                             >
-                                                <MaterialIcons name="delete" size={18} color="#F63E7B" />
+                                                <MaterialIcons name="delete" size={18} color="#CB6CE6" />
                                             </TouchableOpacity>
                                         </View>
                                     </View>
@@ -277,7 +279,7 @@ export default function Actividades() {
                                             style={styles.icon}
                                             name="bank-transfer"
                                             size={24}
-                                            color='#022a9b'
+                                            color='#CB6CE6'
                                         />
                                         <View style={styles.deRow}>
                                             <Text style={styles.Date}>
@@ -312,14 +314,16 @@ export default function Actividades() {
                         onRequestClose={() => setEditModalVisible(false)}
                     >
                         <View style={styles.modalContainer}>
-                            <View style={styles.headerAtras2} >
-                                <TouchableOpacity style={styles.atras} onPress={() => setEditModalVisible(false)}>
-                                    <AntDesign name="arrowleft" size={24} color="#fff" />
-                                </TouchableOpacity>
-                                <Text style={styles.EditarText}>Editar actividad</Text>
+                            <LinearGradient colors={['#1FC2D7', '#CB6CE6',]} style={styles.container} start={{ x: 0, y: 0 }}
+                                end={{ x: 1, y: 0 }}>
+                                <View style={styles.headerAtras2} >
+                                    <TouchableOpacity style={styles.atras} onPress={() => setEditModalVisible(false)}>
+                                        <AntDesign name="arrowleft" size={24} color="#fff" />
+                                    </TouchableOpacity>
+                                    <Text style={styles.EditarText}>Editar actividad</Text>
 
-                            </View>
-
+                                </View>
+                            </LinearGradient>
                             <View style={styles.inputsEdit}>
                                 <View style={styles.inputsFlex}>
                                     <FontAwesome name="dollar" size={20} color='rgba(0, 0, 0, 0.3)' style={styles.Icon} />
@@ -404,7 +408,7 @@ const styles = StyleSheet.create({
 
     },
     containerActividad: {
-        padding: 10,
+        padding: 15,
     },
     actividadContainer: {
         borderWidth: 1,
@@ -425,7 +429,7 @@ const styles = StyleSheet.create({
     },
 
     headerAtras: {
-        backgroundColor: '#022a9b',
+
         flexDirection: 'row',
         paddingTop: 60,
         padding: 20,
@@ -433,7 +437,7 @@ const styles = StyleSheet.create({
 
     },
     headerAtras2: {
-        backgroundColor: '#022a9b',
+
         flexDirection: 'row',
         paddingTop: 30,
         padding: 20,
@@ -441,7 +445,7 @@ const styles = StyleSheet.create({
     },
     filtros: {
         flexDirection: 'row',
-        backgroundColor: '#022a9b',
+
         width: '100%',
         alignItems: 'center',
         justifyContent: 'center',
@@ -504,6 +508,8 @@ const styles = StyleSheet.create({
 
     icon: {
         backgroundColor: 'rgba(2, 42, 155, 0.2)',
+        backgroundColor: 'rgba(31, 194, 215, 0.2)',
+        backgroundColor: 'rgba(203, 108, 230, 0.1)',
         borderRadius: 8,
         padding: 4,
 
@@ -527,7 +533,7 @@ const styles = StyleSheet.create({
     },
 
     detalle: {
-        color: "#022a9b",
+        color: 'rgba(0, 0, 0, 0.8)',
         fontSize: 13
     },
 
@@ -549,14 +555,15 @@ const styles = StyleSheet.create({
     },
     buttonLength: {
         color: "#FFF",
-        backgroundColor: '#022a9b',
+        backgroundColor: '#1FC2D7',
         borderRadius: 100,
         textAlign: 'center',
         justifyContent: 'center',
         alignItems: 'center',
-        width: 120,
-        padding: 5,
-        gap: 5
+        padding: 10,
+        width: 40,
+        height: 40,
+
     },
     deFlexButon: {
         flexDirection: 'row',
@@ -565,7 +572,7 @@ const styles = StyleSheet.create({
         padding: 25
     },
     buttonCancelar: {
-        backgroundColor: '#F63E7B',
+        backgroundColor: '#CB6CE6',
         padding: 10,
         borderRadius: 20,
         width: 150,
@@ -573,8 +580,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     buttonGuardar: {
-        backgroundColor: '#022a9b',
-        padding: 8,
+        backgroundColor: '#1FC2D7',
+        padding: 10,
         borderRadius: 20,
         width: 150,
         textAlign: 'center',
@@ -611,7 +618,7 @@ const styles = StyleSheet.create({
         marginTop: 10,
     },
     filtroCategoriaContainer: {
-        backgroundColor: '#022a9b',
+
         justifyContent: 'center',
 
     },
@@ -621,7 +628,7 @@ const styles = StyleSheet.create({
 
     },
     iconDeleteAll: {
-        backgroundColor: '#F63E7B',
+        backgroundColor: '#CB6CE6',
         borderRadius: 100,
         flexDirection: 'row',
         justifyContent: 'center',
@@ -634,7 +641,7 @@ const styles = StyleSheet.create({
         color: '#fff'
     },
     Agregar: {
-        backgroundColor: '#022a9b',
+        backgroundColor: '#1FC2D7',
         borderRadius: 100,
         textAlign: 'center',
         justifyContent: 'center',

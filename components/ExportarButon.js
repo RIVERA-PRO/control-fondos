@@ -139,7 +139,7 @@ export default function ExportarButon() {
 
 
             <TouchableOpacity style={styles.exportarButon} onPress={exportarActividades}>
-
+                <Text style={styles.exportarText}>Exportar </Text>
                 <MaterialCommunityIcons name="file-excel" size={16} color="#fff" />
             </TouchableOpacity>
 
@@ -153,14 +153,14 @@ const styles = StyleSheet.create({
     },
     exportarButon: {
         backgroundColor: 'green',
-        width: 40,
-        height: 40,
         borderRadius: 100,
-        padding: 4,
-        gap: 5,
         textAlign: 'center',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        width: 120,
+        padding: 5,
+        gap: 5,
+        flexDirection: 'row'
     },
     exportarText: {
         color: '#fff'

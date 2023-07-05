@@ -72,89 +72,84 @@ export default function Header() {
         const currentDate = new Date();
         const currentHour = currentDate.getHours();
 
-        if (currentHour >= 6 && currentHour < 12) {
+        if (currentHour >= 6 && currentHour < 13) {
             setGreeting('Buenos días');
-        } else if (currentHour >= 12 && currentHour < 20) {
+        } else if (currentHour >= 13 && currentHour < 20) {
             setGreeting('Buenas tardes');
         } else {
             setGreeting('Buenas noches');
         }
     }, []);
     return (
+        <LinearGradient colors={['#1FC2D7', '#CB6CE6',]} style={styles.container} start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 0 }}>
 
-        <View style={styles.container}>
-            <TouchableOpacity onPress={toggleModal}>
-                <View style={styles.logoContainer} >
+
+
+            <View >
+                <TouchableOpacity onPress={toggleModal}>
                     <View style={styles.logoContainer} >
-                        <Image source={logo} style={styles.logo} />
-                        <Text style={styles.logoText}>{greeting}</Text>
-                    </View>
-                    <EvilIcons name="navicon" size={24} color="#ffff" />
-                </View>
-            </TouchableOpacity>
-            <Modal
-                visible={isModalVisible}
-                animationType="slide"
-                transparent={true}
-                onRequestClose={toggleModal}
-                presentationStyle="overFullScreen"
-                from="left"
-            >
-
-                <View style={styles.modalContainer} onPress={toggleModal}>
-                    <View style={styles.modalContent} >
-
-                        <Image source={image} style={styles.img} />
-                        <View style={styles.navBtns}>
-                            <TouchableOpacity onPress={goToHome} style={styles.btnNav}>
-                                <FontAwesome name="home" size={20} color='#000' />
-                                <Text style={styles.buttonText}>Home</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity onPress={goToTime} style={styles.btnNav}>
-                                <MaterialCommunityIcons name="timer" size={20} color='#000' />
-                                <Text style={styles.buttonText}>Rutinas</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity onPress={goToProfile} style={styles.btnNav}>
-                                <MaterialIcons name="favorite" size={20} color='#000' />
-                                <Text style={styles.buttonText}>Favoritos</Text>
-                            </TouchableOpacity>
-
-                            <TouchableOpacity onPress={goToEjercicios} style={styles.btnNav}>
-                                <MaterialIcons name="fitness-center" size={20} color='#000' />
-                                <Text style={styles.buttonText}>Ejercicios</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity onPress={goToCategorias} style={styles.btnNav}>
-                                <MaterialIcons name="fitness-center" size={20} color='#000' />
-                                <Text style={styles.buttonText}>Categorias</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity onPress={toggleModal} style={styles.btnNav}>
-                                <MaterialIcons name="logout" size={24} color="black" />
-                                <Text style={styles.buttonText}>Cerrar</Text>
-                            </TouchableOpacity>
-
-                            <Text style={styles.text}>Contacto del desarrollador</Text>
-                            <View style={styles.social}>
-                                <TouchableOpacity onPress={openLinkedInProfile} style={styles.btnNav}>
-                                    <FontAwesome name="linkedin" size={20} color="#000" />
-
-                                </TouchableOpacity>
-                                <TouchableOpacity onPress={openWebsite} style={styles.btnNav}>
-                                    <FontAwesome name="globe" size={20} color="#000" />
-
-                                </TouchableOpacity>
-                                <TouchableOpacity onPress={openWhatsAppChat} style={styles.btnNav}>
-                                    <FontAwesome name="whatsapp" size={20} color="#000" />
-
-                                </TouchableOpacity>
-                            </View>
+                        <View style={styles.logoContainer} >
+                            <Image source={logo} style={styles.logo} />
+                            <Text style={styles.logoText}>{greeting}</Text>
                         </View>
-
-
+                        <EvilIcons name="navicon" size={24} color="#ffff" />
                     </View>
-                </View>
-            </Modal>
-        </View>
+                </TouchableOpacity>
+                <Modal
+                    visible={isModalVisible}
+                    animationType="slide"
+                    transparent={true}
+                    onRequestClose={toggleModal}
+                    presentationStyle="overFullScreen"
+                    from="left"
+                >
 
+                    <View style={styles.modalContainer} onPress={toggleModal}>
+                        <View style={styles.modalContent} >
+
+                            <Image source={image} style={styles.img} />
+                            <View style={styles.navBtns}>
+                                <TouchableOpacity onPress={goToHome} style={styles.btnNav}>
+                                    <FontAwesome name="home" size={20} color='#CB6CE6' />
+                                    <Text style={styles.buttonText}>Home</Text>
+                                </TouchableOpacity>
+
+
+                                <TouchableOpacity onPress={goToEjercicios} style={styles.btnNav}>
+
+                                    <MaterialCommunityIcons name="bank-transfer" size={22} color='#CB6CE6' />
+                                    <Text style={styles.buttonText}>Actividades</Text>
+                                </TouchableOpacity>
+
+                                <TouchableOpacity onPress={toggleModal} style={styles.btnNav}>
+                                    <MaterialIcons name="logout" size={20} color="#CB6CE6" />
+                                    <Text style={styles.buttonText}>Cerrar</Text>
+                                </TouchableOpacity>
+
+                                <Text style={styles.text}>Contacto del desarrollador</Text>
+                                <View style={styles.social}>
+                                    <TouchableOpacity onPress={openLinkedInProfile} style={styles.btnNav}>
+                                        <FontAwesome name="linkedin" size={20} color="#CB6CE6" />
+
+                                    </TouchableOpacity>
+                                    <TouchableOpacity onPress={openWebsite} style={styles.btnNav}>
+                                        <FontAwesome name="globe" size={20} color="#CB6CE6" />
+
+                                    </TouchableOpacity>
+                                    <TouchableOpacity onPress={openWhatsAppChat} style={styles.btnNav}>
+                                        <FontAwesome name="whatsapp" size={20} color="#CB6CE6" />
+
+                                    </TouchableOpacity>
+                                </View>
+                            </View>
+
+
+                        </View>
+                    </View>
+                </Modal>
+            </View>
+        </LinearGradient>
     );
 }
 
@@ -166,7 +161,7 @@ const getCurrentDate = () => {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: '#022a9b',
+
         paddingHorizontal: 10,
         flexDirection: 'column',
         padding: 20,
@@ -208,10 +203,12 @@ const styles = StyleSheet.create({
         padding: 10,
         borderRadius: 8,
         elevation: 5,
+
     },
     buttonText: {
-        color: '#000',
+        color: 'rgba(0, 0, 0, 0.6)',
         fontWeight: 'bold',
+
     },
     modalContainer: {
         flex: 1,
@@ -239,7 +236,7 @@ const styles = StyleSheet.create({
     },
     img: {
         width: '100%',
-        height: 140,
+        height: 150,
         objectFit: 'cover'
     },
     navBtns: {
@@ -252,6 +249,8 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         padding: 10,
         margin: 9,
+        borderBottomWidth: 0.3,
+        borderColor: 'rgba(0, 0, 0, 0.1)',
     },
     social: {
         flexDirection: 'row',
@@ -262,6 +261,6 @@ const styles = StyleSheet.create({
     },
     text: {
         textAlign: 'center',
-        marginTop: 100
+        marginTop: 200
     }
 });

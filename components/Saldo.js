@@ -9,6 +9,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
 import { Foundation } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
+import { LinearGradient } from 'expo-linear-gradient';
 export default function Saldo() {
     const [actividades, setActividades] = useState([]);
     const [sumaIngresos, setSumaIngresos] = useState(0);
@@ -86,7 +87,7 @@ export default function Saldo() {
                                 $ {obtenerSaldoTotal().toLocaleString()}
                             </Text>
                             <TouchableOpacity onPress={recargarComponente} style={styles.button}>
-                                <Icon name="refresh" size={20} color="#007AFF" />
+                                <Icon name="refresh" size={20} color="#CB6CE6" />
                             </TouchableOpacity>
                         </View>
                         <View style={styles.deFlex2}>
@@ -94,7 +95,7 @@ export default function Saldo() {
                                 onPress={() => abrirModal('ingresos')}
                                 style={styles.totalnumber}
                             >
-                                <Entypo name="log-out" style={styles.icon2} size={11} color='#022a9b' />
+                                <Entypo name="log-out" style={styles.icon2} size={11} color='#CB6CE6' />
                                 <Text style={styles.sumaIngresos}>
                                     + ${sumaIngresos.toLocaleString()}
                                 </Text>
@@ -105,7 +106,7 @@ export default function Saldo() {
                                 onPress={() => abrirModal('egresos')}
                                 style={styles.totalnumber}
                             >
-                                <Entypo name="log-out" style={styles.icon2} size={11} color='#022a9b' />
+                                <Entypo name="log-out" style={styles.icon2} size={11} color='#CB6CE6' />
                                 <Text style={styles.sumaEgresos}>
                                     - ${sumaEgresos.toLocaleString()}
                                 </Text>
@@ -125,16 +126,18 @@ export default function Saldo() {
             >
                 <ScrollView style={styles.modalbg}>
                     <View style={styles.modalContainer}>
-                        <View style={styles.headerAtras} >
+                        <LinearGradient colors={['#1FC2D7', '#CB6CE6',]} style={styles.container} start={{ x: 0, y: 0 }}
+                            end={{ x: 1, y: 0 }}>
+                            <View style={styles.headerAtras} >
 
-                            <TouchableOpacity style={styles.atras} onPress={() => setModalVisible(false)}>
-                                <AntDesign name="arrowleft" size={24} color="#fff" />
-                            </TouchableOpacity>
-                            <Text style={styles.modalTitle}>
-                                {tipoSuma === 'ingresos' ? 'Total de Ingresos' : 'Total de Egresos'}
-                            </Text>
-                        </View>
-
+                                <TouchableOpacity style={styles.atras} onPress={() => setModalVisible(false)}>
+                                    <AntDesign name="arrowleft" size={24} color="#fff" />
+                                </TouchableOpacity>
+                                <Text style={styles.modalTitle}>
+                                    {tipoSuma === 'ingresos' ? 'Total de Ingresos' : 'Total de Egresos'}
+                                </Text>
+                            </View>
+                        </LinearGradient>
 
                         {tipoSuma === 'ingresos' && (
                             <View>
@@ -146,7 +149,7 @@ export default function Saldo() {
                                 {actividadesIngresos.map((actividad) => (
                                     <View style={styles.actividadContainer}>
                                         <View style={styles.deFlexActivity}>
-                                            <MaterialCommunityIcons style={styles.icon} name="bank-transfer" size={24} color='#022a9b' />
+                                            <MaterialCommunityIcons style={styles.icon2} name="bank-transfer" size={24} color='#CB6CE6' />
                                             {actividad.descripcion.length > 20 ? (
                                                 <Text style={styles.descripcion}>{actividad.descripcion.slice(0, 20)}..</Text>
                                             ) : (
@@ -176,7 +179,7 @@ export default function Saldo() {
                                 {actividadesEgresos.map((actividad) => (
                                     <View style={styles.actividadContainer}>
                                         <View style={styles.deFlexActivity}>
-                                            <MaterialCommunityIcons style={styles.icon} name="bank-transfer" size={24} color='#022a9b' />
+                                            <MaterialCommunityIcons style={styles.icon2} name="bank-transfer" size={24} color='#CB6CE6' />
                                             {actividad.descripcion.length > 20 ? (
                                                 <Text style={styles.descripcion}>{actividad.descripcion.slice(0, 20)}..</Text>
                                             ) : (
@@ -254,7 +257,7 @@ const styles = StyleSheet.create({
     total: {
         fontSize: 23,
         paddingLeft: 20,
-        color: 'rgba(0, 0, 0, 0.7)',
+        color: 'rgba(0, 0, 0, 0.6)',
         fontWeight: '600'
     },
     sumaIngresos: {
@@ -271,8 +274,6 @@ const styles = StyleSheet.create({
         height: '100%',
     },
     headerAtras: {
-
-        backgroundColor: '#022a9b',
         flexDirection: 'row',
         paddingTop: 40,
         padding: 20,
@@ -319,7 +320,7 @@ const styles = StyleSheet.create({
     },
     icon: {
 
-        backgroundColor: 'rgba(2, 42, 155, 0.2)',
+
         borderRadius: 8,
         padding: 4
     },
@@ -341,7 +342,8 @@ const styles = StyleSheet.create({
         color: 'red'
     },
     icon2: {
-        backgroundColor: 'rgba(2, 42, 155, 0.2)',
+
+        backgroundColor: 'rgba(203, 108, 230, 0.1)',
         borderRadius: 4,
         padding: 4
     },

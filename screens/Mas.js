@@ -16,6 +16,7 @@ import { Dialog } from "react-native-popup-dialog";
 import Header from '../components/Header';
 import { FontAwesome } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
+import { LinearGradient } from 'expo-linear-gradient';
 export default function Mas() {
     const [monto, setMonto] = useState('');
     const [descripcion, setDescripcion] = useState('');
@@ -110,12 +111,14 @@ export default function Mas() {
         <ScrollView contentContainerStyle={styles.scrollContainer}>
             <Header />
             <View style={styles.container}>
-                <View style={styles.buttonsContainer}>
+                <LinearGradient colors={['#1FC2D7', '#CB6CE6',]} style={styles.buttonsContainer} start={{ x: 0, y: 0 }}
+                    end={{ x: 1, y: 0 }}>
+
                     <View style={styles.buttonBtns}>
                         <TouchableOpacity
                             style={[
                                 styles.button, showHomeComponent,
-                                formularioActual === 'Ingreso' && { backgroundColor: '#022a9b' },
+                                formularioActual === 'Ingreso' && { backgroundColor: '#1FC2D7' },
                             ]}
                             onPress={() => {
                                 mostrarFormularioIngreso();
@@ -127,7 +130,7 @@ export default function Mas() {
                         <TouchableOpacity
                             style={[
                                 styles.button, showActividad,
-                                formularioActual === 'Egreso' && { backgroundColor: '#022a9b' },
+                                formularioActual === 'Egreso' && { backgroundColor: '#1FC2D7' },
                             ]}
                             onPress={() => {
                                 mostrarFormularioEgreso();
@@ -137,7 +140,9 @@ export default function Mas() {
                             <Text style={styles.buttonText}>Egreso</Text>
                         </TouchableOpacity>
                     </View>
-                </View>
+
+
+                </LinearGradient>
                 <Animated.View style={[styles.componentContainer, { opacity: homeOpacity, transform: [{ translateY: homeTranslateY }] }]}>
                     {showHomeComponent && formularioActual === 'Ingreso' && (
                         <View style={styles.form}>
@@ -228,7 +233,7 @@ export default function Mas() {
                 <TouchableOpacity
                     style={[
                         styles.guardar, showActividad,
-                        formularioActual === 'Egreso' && { backgroundColor: '#022a9b' },
+                        formularioActual === 'Egreso' && { backgroundColor: '#1FC2D7' },
                     ]}
                     onPress={crearActividad}
                 >
@@ -265,8 +270,6 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         borderRadius: 20,
         margin: 10,
-
-
         shadowColor: 'rgba(0, 0, 0, 0.8)',
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.25,
@@ -323,7 +326,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
     guardar: {
-        backgroundColor: '#022a9b',
+        backgroundColor: '#1FC2D7',
         padding: 12,
         borderRadius: 20,
         margin: 20

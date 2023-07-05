@@ -7,7 +7,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
 import { Picker } from '@react-native-picker/picker';
 import { Dialog } from "react-native-popup-dialog";
-
+import { LinearGradient } from 'expo-linear-gradient';
 export default function Detail() {
     const route = useRoute();
     const { actividad } = route.params;
@@ -94,14 +94,15 @@ export default function Detail() {
 
     return (
         <View style={styles.container}>
+            <LinearGradient colors={['#1FC2D7', '#CB6CE6',]} start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 0 }}>
+                <View style={styles.headerAtras} >
+                    <TouchableOpacity style={styles.atras} onPress={goToActividades}>
+                        <AntDesign name="arrowleft" size={24} color="#fff" />
+                    </TouchableOpacity>
 
-            <View style={styles.headerAtras} >
-                <TouchableOpacity style={styles.atras} onPress={goToActividades}>
-                    <AntDesign name="arrowleft" size={24} color="#fff" />
-                </TouchableOpacity>
-
-            </View>
-
+                </View>
+            </LinearGradient>
             <View style={styles.headerAtras2} >
                 <Text
                     style={{
@@ -121,7 +122,7 @@ export default function Detail() {
             <View style={styles.containerDetail}>
                 <View style={styles.deFlex}>
                     <View style={styles.deFlex2}>
-                        <MaterialIcons name="category" style={styles.Icon} size={20} color="#022a9b" />
+                        <MaterialIcons name="category" style={styles.Icon} size={20} color="#CB6CE6" />
                         <Text>Categoria:</Text>
                     </View>
                     <View style={styles.deFlex2}>
@@ -130,7 +131,7 @@ export default function Detail() {
                 </View>
                 <View style={styles.deFlex}>
                     <View style={styles.deFlex2}>
-                        <MaterialIcons name="date-range" style={styles.Icon} size={20} color="#022a9b" />
+                        <MaterialIcons name="date-range" style={styles.Icon} size={20} color="#CB6CE6" />
                         <Text>Fecha:</Text>
                     </View>
                     <View style={styles.deFlex2}>
@@ -139,7 +140,7 @@ export default function Detail() {
                 </View>
                 <View style={styles.deFlex}>
                     <View style={styles.deFlex2}>
-                        <MaterialIcons name="description" style={styles.Icon} size={20} color="#022a9b" />
+                        <MaterialIcons name="description" style={styles.Icon} size={20} color="#CB6CE6" />
                         <Text>Descripcion:</Text>
                     </View>
                     <View style={styles.deFlex2}>
@@ -149,7 +150,7 @@ export default function Detail() {
                 </View>
                 <View style={styles.deFlex}>
                     <View style={styles.deFlex2}>
-                        <MaterialIcons name="credit-card" size={20} color="#022a9b" style={styles.Icon} />
+                        <MaterialIcons name="credit-card" size={20} color="#CB6CE6" style={styles.Icon} />
                         <Text>Tipo:</Text>
                     </View>
                     <View style={styles.deFlex2}>
@@ -171,12 +172,14 @@ export default function Detail() {
 
             <Modal visible={modalVisible} animationType="slide" >
                 <View style={styles.modalContainer}>
-                    <View style={styles.headerAtras3} >
-                        <TouchableOpacity style={styles.atras} onPress={() => setModalVisible(false)}>
-                            <AntDesign name="arrowleft" size={24} color="#fff" />
-                        </TouchableOpacity>
+                    <LinearGradient colors={['#1FC2D7', '#CB6CE6',]} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
+                        <View style={styles.headerAtras3} >
+                            <TouchableOpacity style={styles.atras} onPress={() => setModalVisible(false)}>
+                                <AntDesign name="arrowleft" size={24} color="#fff" />
+                            </TouchableOpacity>
 
-                    </View>
+                        </View>
+                    </LinearGradient>
                     <View style={styles.modalContent}>
 
 
@@ -256,7 +259,7 @@ const styles = StyleSheet.create({
     },
     headerAtras: {
 
-        backgroundColor: '#022a9b',
+
         flexDirection: 'row',
         paddingTop: 60,
         padding: 20,
@@ -264,9 +267,7 @@ const styles = StyleSheet.create({
         height: 200
     },
     headerAtras3: {
-        backgroundColor: '#022a9b',
         flexDirection: 'row',
-
         padding: 20,
         justifyContent: 'space-between',
 
@@ -317,15 +318,15 @@ const styles = StyleSheet.create({
 
     },
     butonEdit: {
-        backgroundColor: '#022a9b',
-        padding: 8,
+        backgroundColor: '#1FC2D7',
+        padding: 10,
         borderRadius: 20,
         width: 150,
         textAlign: 'center',
         justifyContent: 'center',
     },
     butonDelet: {
-        backgroundColor: '#F63E7B',
+        backgroundColor: '#CB6CE6',
         padding: 10,
         borderRadius: 20,
         width: 150,
@@ -345,7 +346,7 @@ const styles = StyleSheet.create({
         marginTop: 20
     },
     buttonCancelar: {
-        backgroundColor: '#F63E7B',
+        backgroundColor: '#CB6CE6',
         padding: 10,
         borderRadius: 20,
         width: 150,
@@ -353,8 +354,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     buttonGuardar: {
-        backgroundColor: '#022a9b',
-        padding: 8,
+        backgroundColor: '#1FC2D7',
+        padding: 10,
         borderRadius: 20,
         width: 150,
         textAlign: 'center',
@@ -381,7 +382,7 @@ const styles = StyleSheet.create({
         padding: 20
     },
     Icon: {
-        backgroundColor: 'rgba(2, 42, 155, 0.2)',
+        backgroundColor: 'rgba(203, 108, 230, 0.1)',
         borderRadius: 8,
         padding: 4
     },

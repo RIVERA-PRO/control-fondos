@@ -7,7 +7,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import * as FileSystem from 'expo-file-system';
 import * as Sharing from 'expo-sharing';
 import XLSX from 'xlsx';
-
+import { AntDesign } from '@expo/vector-icons';
 export default function Actividad() {
     const isFocused = useIsFocused();
     const [actividades, setActividades] = useState([]);
@@ -138,16 +138,17 @@ export default function Actividad() {
     return (
         <ScrollView contentContainerStyle={styles.scrollContainer2}>
             <View style={styles.deFlex}>
-                <Text>Actividad</Text>
+                <Text style={styles.Actividad}>Actividad</Text>
 
-                <TouchableOpacity onPress={goToActividades}>
-                    <Text style={styles.verMas}>Ver más</Text>
+                <TouchableOpacity onPress={goToActividades} style={styles.verMas}>
+                    <Text style={styles.verMasText}>Ver más</Text>
+
                 </TouchableOpacity>
 
             </View>
             {actividades.slice(0, 6).map((actividad) => (
                 <View key={actividad.id} style={styles.actividadContainer}>
-                    <MaterialCommunityIcons style={styles.icon} name="bank-transfer" size={24} color='#022a9b' />
+                    <MaterialCommunityIcons style={styles.icon} name="bank-transfer" size={24} color='#CB6CE6' />
 
                     <View style={styles.deRow}>
                         <Text style={styles.Date}>{new Date(actividad.createdAt).toLocaleString()}</Text>
@@ -208,6 +209,8 @@ const styles = StyleSheet.create({
     icon: {
 
         backgroundColor: 'rgba(2, 42, 155, 0.2)',
+        backgroundColor: 'rgba(31, 194, 215, 0.1)',
+        backgroundColor: 'rgba(203, 108, 230, 0.1)',
         borderRadius: 8,
         padding: 4
     },
@@ -223,9 +226,29 @@ const styles = StyleSheet.create({
     monto: {
         marginLeft: 20
     },
+    Actividad: {
+        fontSize: 14,
+        color: 'rgba(0, 0, 0, 0.6)',
+        fontWeight: '600'
+    },
     verMas: {
-        color: '#022a9b',
-        fontSize: 13
+        fontSize: 13,
+        color: 'rgba(0, 0, 0, 0.6)',
+        fontWeight: '600',
+        flexDirection: 'row',
+        alignItems: 'center',
+
+    },
+    verMasText: {
+        fontSize: 13,
+        color: 'rgba(0, 0, 0, 0.6)',
+        fontWeight: '600',
+        flexDirection: 'row',
+        alignItems: 'center',
+
+    },
+    verMasicon: {
+        marginTop: 2
     },
     Agregar: {
         backgroundColor: '#022a9b',

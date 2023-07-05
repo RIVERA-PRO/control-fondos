@@ -1,14 +1,27 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { View, StyleSheet, ImageBackground, ScrollView, Text, TouchableOpacity, Animated } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import { LinearGradient } from 'expo-linear-gradient';
-import Header from '../components/Header';
-import HomeComponent from '../components/HomeComponent';
-import Actividad from '../components/Actividad';
-import Saldo from '../components/Saldo';
-import { AntDesign } from '@expo/vector-icons';
+import React, { useState, useEffect } from 'react';
+import {
+    View,
+    StyleSheet,
+    ScrollView,
+    Text,
+    TextInput,
+    Button,
+    TouchableOpacity,
+    Animated
 
-export default function Home() {
+} from 'react-native';
+import { Picker } from '@react-native-picker/picker';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Dialog } from "react-native-popup-dialog";
+import Header from '../components/Header';
+import { FontAwesome } from '@expo/vector-icons';
+import { MaterialIcons } from '@expo/vector-icons';
+import { LinearGradient } from 'expo-linear-gradient';
+import Notas from '../components/Notas';
+import AllNotas from '../components/AllNotas';
+import { useNavigation } from '@react-navigation/native';
+
+export default function NotasScreen() {
     const navigation = useNavigation();
     const [showHomeComponent, setShowHomeComponent] = useState(true);
     const [showActividad, setShowActividad] = useState(false);
@@ -47,64 +60,66 @@ export default function Home() {
         setShowActividad(true);
     };
 
+
+
     return (
-        <View contentContainerStyle={styles.scrollContaisner}>
-
-
+        <View>
             <Header />
+            <ScrollView contentContainerStyle={styles.scrollContainer2}>
 
-            <ScrollView contentContainerStyle={styles.scrollContainer}>
-
-                <LinearGradient colors={['#1FC2D7', '#CB6CE6',]} style={styles.container} start={{ x: 0, y: 0 }}
+                <LinearGradient colors={['#1FC2D7', '#CB6CE6',]} style={styles.buttonContainer} start={{ x: 0, y: 0 }}
                     end={{ x: 1, y: 0 }}>
-                    <View style={styles.buttonContainer}>
+                    <View >
                         <View style={styles.buttonBtns}>
                             <TouchableOpacity
                                 style={[styles.button, showHomeComponent && styles.activeButton]}
                                 onPress={showHome}
                             >
-                                <Text style={[styles.buttonText, showHomeComponent && styles.activeButtonText]}>Actividad</Text>
+                                <Text style={[styles.buttonText, showHomeComponent && styles.activeButtonText]}>       Notas      </Text>
                             </TouchableOpacity>
                             <TouchableOpacity
                                 style={[styles.button, showActividad && styles.activeButton]}
                                 onPress={showActividadComponent}
                             >
-                                <Text style={[styles.buttonText, showActividad && styles.activeButtonText]}>Home Mostrar</Text>
+                                <Text style={[styles.buttonText, showActividad && styles.activeButtonText]}>       Añadir       </Text>
                             </TouchableOpacity>
                         </View>
                     </View>
                 </LinearGradient>
-                <Saldo />
 
                 <Animated.View style={[styles.componentContainer, { opacity: homeOpacity, transform: [{ translateY: homeTranslateY }] }]}>
-                    {showHomeComponent && <Actividad />}
+                    {showHomeComponent && <AllNotas />}
                 </Animated.View>
                 <Animated.View style={[styles.componentContainer2, { opacity: actividadOpacity, transform: [{ translateY: actividadTranslateY }] }]}>
-                    {showActividad && <HomeComponent />}
+                    {showActividad && <Notas />}
                 </Animated.View>
-            </ScrollView>
 
+
+            </ScrollView>
         </View>
-    );
+    )
 }
 
 const styles = StyleSheet.create({
-    scrollContainer: {
+
+
+    scrollContainer2: {
         flexGrow: 1,
         height: '120%',
         marginTop: 80,
         backgroundColor: '#f9f9f9',
 
-    },
-    scrollViewHome: {
-        flex: 1,
-        gap: 30,
+
     },
     buttonContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        marginBottom: 20,
         padding: 20,
+        borderBottomLeftRadius: 20,
+        borderBottomRightRadius: 20,
         marginTop: 20,
         width: '100%',
-        height: 150
 
     },
     buttonBtns: {
@@ -115,6 +130,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         width: '100%'
     },
+
     button: {
         paddingVertical: 8,
         paddingHorizontal: 35,
@@ -139,7 +155,7 @@ const styles = StyleSheet.create({
         padding: 10,
         backgroundColor: '#fff',
         borderRadius: 8,
-        margin: 15,
+
         opacity: 0,
         transform: [{ translateY: 100 }],
         shadowColor: 'rgba(0, 0, 0, 0.8)',
@@ -152,7 +168,7 @@ const styles = StyleSheet.create({
         padding: 10,
         backgroundColor: '#fff',
         borderRadius: 8,
-        margin: 15,
+
         opacity: 0,
         transform: [{ translateY: 100 }],
         shadowColor: 'rgba(0, 0, 0, 0.8)',
@@ -162,4 +178,4 @@ const styles = StyleSheet.create({
         elevation: 3,
         marginTop: -30
     }
-});
+})
