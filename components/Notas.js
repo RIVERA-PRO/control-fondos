@@ -28,6 +28,10 @@ export default function Notas() {
         if (titulo === '' || notaText === '') {
             console.log('los campos no pueden estar vacios')
             setShowAlertError(true)
+            setTimeout(() => {
+                setShowAlertError(false);
+
+            }, 600);
             return
         }
 
@@ -53,7 +57,7 @@ export default function Notas() {
             setTimeout(() => {
                 setShowAlert(false);
                 navigation.navigate('NotasScreen');
-            }, 1000);
+            }, 500);
 
         } catch (error) {
             console.log(error)
@@ -125,13 +129,13 @@ const styles = StyleSheet.create({
         padding: 10,
         backgroundColor: '#fff',
         borderRadius: 20,
-        margin: 10,
+
         shadowColor: 'rgba(0, 0, 0, 0.8)',
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.25,
         shadowRadius: 3,
         elevation: 1,
-        marginTop: 100
+
     },
     input: {
         paddingHorizontal: 10,
@@ -157,7 +161,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#1FC2D7',
         padding: 12,
         borderRadius: 20,
-        margin: 20
+        marginTop: 20
     },
     guardarText: {
         textAlign: 'center',

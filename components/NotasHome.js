@@ -23,7 +23,7 @@ import { useNavigation } from '@react-navigation/native';
 import { AntDesign } from '@expo/vector-icons'
 import { Feather } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-export default function AllNotas() {
+export default function NotasHome() {
     const isFocused = useIsFocused();
     const [notas, setNotas] = useState([]);
     const navigation = useNavigation();
@@ -130,7 +130,10 @@ export default function AllNotas() {
         'rgba(203, 108, 230, 0.1)',
         'rgba(108, 203, 230, 0.1)',
     ];
+    const goNotas = () => {
+        navigation.navigate('NotasScreen');
 
+    };
     if (notas.length === 0) {
         return (
 
@@ -144,10 +147,18 @@ export default function AllNotas() {
 
     return (
         <View style={styles.notasContainer}>
+            <View style={styles.deFlex2}>
+                <Text style={styles.Notas}>Notas</Text>
 
+                <TouchableOpacity onPress={goNotas} style={styles.verMas}>
+                    <Text style={styles.verMasText}>Ver más</Text>
+
+                </TouchableOpacity>
+
+            </View>
 
             <View style={styles.notasContainer}>
-                {notas.map((nota, index) => (
+                {notas.slice(0, 6).map((nota, index) => (
                     <TouchableOpacity
                         style={[styles.nota, { backgroundColor: colores[index % colores.length] }]}
                         key={nota.id}
@@ -275,7 +286,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         gap: 10,
         alignItems: 'center',
-        margin: 10,
+        marginTop: 15,
         padding: 10,
         borderRadius: 10,
 
@@ -383,5 +394,30 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         justifyContent: 'center',
         paddingTop: 200
-    }
+    },
+    deFlex2: {
+        flexDirection: 'row',
+        justifyContent: 'space-between'
+    },
+    Notas: {
+        fontSize: 14,
+        color: 'rgba(0, 0, 0, 0.6)',
+        fontWeight: '600'
+    },
+    verMas: {
+        fontSize: 13,
+        color: 'rgba(0, 0, 0, 0.6)',
+        fontWeight: '600',
+        flexDirection: 'row',
+        alignItems: 'center',
+
+    },
+    verMasText: {
+        fontSize: 13,
+        color: 'rgba(0, 0, 0, 0.6)',
+        fontWeight: '600',
+        flexDirection: 'row',
+        alignItems: 'center',
+
+    },
 })

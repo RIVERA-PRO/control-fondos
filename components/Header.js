@@ -25,23 +25,15 @@ export default function Header() {
         setModalVisible(!isModalVisible);
     };
 
-    const goToProfile = () => {
-        navigation.navigate('Perfil');
+    const goToActividades = () => {
+        navigation.navigate('Actividades');
+        setModalVisible(!isModalVisible);
+    };
+    const goToNotas = () => {
+        navigation.navigate('NotasScreen');
         setModalVisible(!isModalVisible);
     };
 
-    const goToTime = () => {
-        navigation.navigate('Time');
-        setModalVisible(!isModalVisible);
-    };
-    const goToEjercicios = () => {
-        navigation.navigate('Ejercicios');
-        setModalVisible(!isModalVisible);
-    };
-    const goToCategorias = () => {
-        navigation.navigate('Categorias');
-        setModalVisible(!isModalVisible);
-    };
 
     const openLinkedInProfile = () => {
         const linkedInURL = 'https://www.linkedin.com/in/juan-rivera-9ba866215/'; // Reemplaza con tu URL de LinkedIn
@@ -74,7 +66,7 @@ export default function Header() {
 
         if (currentHour >= 6 && currentHour < 13) {
             setGreeting('Buenos días');
-        } else if (currentHour >= 13 && currentHour < 20) {
+        } else if (currentHour >= 13 && currentHour < 19) {
             setGreeting('Buenas tardes');
         } else {
             setGreeting('Buenas noches');
@@ -116,12 +108,17 @@ export default function Header() {
                                 </TouchableOpacity>
 
 
-                                <TouchableOpacity onPress={goToEjercicios} style={styles.btnNav}>
+                                <TouchableOpacity onPress={goToActividades} style={styles.btnNav}>
 
                                     <MaterialCommunityIcons name="bank-transfer" size={22} color='#CB6CE6' />
                                     <Text style={styles.buttonText}>Actividades</Text>
                                 </TouchableOpacity>
+                                <TouchableOpacity onPress={goToNotas} style={styles.btnNav}>
 
+                                    <MaterialIcons name="description" size={20} color='#CB6CE6' />
+
+                                    <Text style={styles.buttonText}>Notas</Text>
+                                </TouchableOpacity>
                                 <TouchableOpacity onPress={toggleModal} style={styles.btnNav}>
                                     <MaterialIcons name="logout" size={20} color="#CB6CE6" />
                                     <Text style={styles.buttonText}>Cerrar</Text>

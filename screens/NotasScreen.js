@@ -63,7 +63,7 @@ export default function NotasScreen() {
 
 
     return (
-        <View>
+        <View style={styles.containerbg} >
             <Header />
             <ScrollView contentContainerStyle={styles.scrollContainer2}>
 
@@ -90,7 +90,7 @@ export default function NotasScreen() {
                 <Animated.View style={[styles.componentContainer, { opacity: homeOpacity, transform: [{ translateY: homeTranslateY }] }]}>
                     {showHomeComponent && <AllNotas />}
                 </Animated.View>
-                <Animated.View style={[styles.componentContainer2, { opacity: actividadOpacity, transform: [{ translateY: actividadTranslateY }] }]}>
+                <Animated.View style={[styles.componentContainer, { opacity: actividadOpacity, transform: [{ translateY: actividadTranslateY }] }]}>
                     {showActividad && <Notas />}
                 </Animated.View>
 
@@ -102,12 +102,14 @@ export default function NotasScreen() {
 
 const styles = StyleSheet.create({
 
-
-    scrollContainer2: {
+    containerbg: {
+        backgroundColor: '#fff',
         flexGrow: 1,
-        height: '120%',
+    },
+    scrollContainer2: {
+
         marginTop: 80,
-        backgroundColor: '#f9f9f9',
+        backgroundColor: '#fff',
 
 
     },
@@ -158,24 +160,7 @@ const styles = StyleSheet.create({
 
         opacity: 0,
         transform: [{ translateY: 100 }],
-        shadowColor: 'rgba(0, 0, 0, 0.8)',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.25,
-        shadowRadius: 3,
-        elevation: 3,
-    },
-    componentContainer2: {
-        padding: 10,
-        backgroundColor: '#fff',
-        borderRadius: 8,
 
-        opacity: 0,
-        transform: [{ translateY: 100 }],
-        shadowColor: 'rgba(0, 0, 0, 0.8)',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.25,
-        shadowRadius: 3,
-        elevation: 3,
-        marginTop: -30
-    }
+    },
+
 })

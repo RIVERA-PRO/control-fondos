@@ -115,7 +115,12 @@ export default function Actividad() {
             console.log('Error al exportar el archivo:', error);
         }
     };
-
+    const verDetalle = (id) => {
+        const actividadSeleccionada = actividades.find((actividad) => actividad.id === id);
+        if (actividadSeleccionada) {
+            navigation.navigate('Detail', { actividad: actividadSeleccionada });
+        }
+    };
     const goToMas = () => {
         navigation.navigate('Mas');
 
@@ -147,25 +152,32 @@ export default function Actividad() {
 
             </View>
             {actividades.slice(0, 6).map((actividad) => (
-                <View key={actividad.id} style={styles.actividadContainer}>
-                    <MaterialCommunityIcons style={styles.icon} name="bank-transfer" size={24} color='#CB6CE6' />
+                <TouchableOpacity
+                    style={styles.icson}
+                    onPress={() => {
+                        verDetalle(actividad.id);
+                    }}
+                >
+                    <View key={actividad.id} style={styles.actividadContainer}>
+                        <MaterialCommunityIcons style={styles.icon} name="bank-transfer" size={24} color='#CB6CE6' />
 
-                    <View style={styles.deRow}>
-                        <Text style={styles.Date}>{new Date(actividad.createdAt).toLocaleString()}</Text>
-                        {actividad.descripcion.length > 16 ? (
-                            <Text style={styles.descripcion}>{actividad.descripcion.slice(0, 16)}..</Text>
-                        ) : (
-                            <Text style={styles.descripcion}>{actividad.descripcion}</Text>
-                        )}
-                    </View>
+                        <View style={styles.deRow}>
+                            <Text style={styles.Date}>{new Date(actividad.createdAt).toLocaleString()}</Text>
+                            {actividad.descripcion.length > 16 ? (
+                                <Text style={styles.descripcion}>{actividad.descripcion.slice(0, 16)}..</Text>
+                            ) : (
+                                <Text style={styles.descripcion}>{actividad.descripcion}</Text>
+                            )}
+                        </View>
 
-                    <View style={styles.monto}>
-                        <Text style={{ color: actividad?.categoria === 'Ingreso' ? 'green' : 'red' }}>
-                            {actividad.categoria === 'Egreso'}
-                            $ {actividad.monto.toLocaleString().slice(0, 14)}
-                        </Text>
+                        <View style={styles.monto}>
+                            <Text style={{ color: actividad?.categoria === 'Ingreso' ? 'green' : 'red' }}>
+                                {actividad.categoria === 'Egreso'}
+                                $ {actividad.monto.toLocaleString().slice(0, 14)}
+                            </Text>
+                        </View>
                     </View>
-                </View>
+                </TouchableOpacity>
             ))}
 
         </ScrollView>

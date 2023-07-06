@@ -7,7 +7,7 @@ import HomeComponent from '../components/HomeComponent';
 import Actividad from '../components/Actividad';
 import Saldo from '../components/Saldo';
 import { AntDesign } from '@expo/vector-icons';
-
+import NotasHome from '../components/NotasHome';
 export default function Home() {
     const navigation = useNavigation();
     const [showHomeComponent, setShowHomeComponent] = useState(true);
@@ -63,13 +63,13 @@ export default function Home() {
                                 style={[styles.button, showHomeComponent && styles.activeButton]}
                                 onPress={showHome}
                             >
-                                <Text style={[styles.buttonText, showHomeComponent && styles.activeButtonText]}>Actividad</Text>
+                                <Text style={[styles.buttonText, showHomeComponent && styles.activeButtonText]}>    Actividad    </Text>
                             </TouchableOpacity>
                             <TouchableOpacity
                                 style={[styles.button, showActividad && styles.activeButton]}
                                 onPress={showActividadComponent}
                             >
-                                <Text style={[styles.buttonText, showActividad && styles.activeButtonText]}>Home Mostrar</Text>
+                                <Text style={[styles.buttonText, showActividad && styles.activeButtonText]}>       Notas      </Text>
                             </TouchableOpacity>
                         </View>
                     </View>
@@ -80,7 +80,7 @@ export default function Home() {
                     {showHomeComponent && <Actividad />}
                 </Animated.View>
                 <Animated.View style={[styles.componentContainer2, { opacity: actividadOpacity, transform: [{ translateY: actividadTranslateY }] }]}>
-                    {showActividad && <HomeComponent />}
+                    {showActividad && <NotasHome />}
                 </Animated.View>
             </ScrollView>
 

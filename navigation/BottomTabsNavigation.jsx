@@ -9,7 +9,7 @@ import Perfil from '../screens/Perfil'
 import Mas from '../screens/Mas'
 import Actividades from '../screens/Actividades'
 import NotasScreen from "../screens/NotasScreen";
-import FormNotas from "../screens/FormNotas";
+
 import { FontAwesome } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
@@ -147,24 +147,7 @@ function BottomTabsNavigation() {
                         <FontAwesome name="book" size={20} color={color} />
                     ),
                 }} />
-            < Tab.Screen name="FormNotas"
-                component={FormNotas}
-                options={{
-                    tabBarButton: () => null, // Ocultar el botón del tab
-                    tabBarStyle: {
-                        backgroundColor: '#fff',
-                        height: 53,
-                        elevation: 0,
-                        position: 'absolute',
-                    },
-                    activeTintColor: '#022a9b',
-                    inactiveTintColor: '#9B9B9B',
-                    headerShown: false,
-                    tabBarLabel: 'FormNotas',
-                    tabBarIcon: ({ color }) => (
-                        <FontAwesome name="book" size={20} color={color} />
-                    ),
-                }} />
+
             < Tab.Screen name="Detail" component={Detail}
                 options={{
                     tabBarButton: () => null, // Ocultar el botón del tab

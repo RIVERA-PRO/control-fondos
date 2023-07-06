@@ -249,15 +249,15 @@ export default function Actividades() {
                             filtrarActividades().map((actividad) => (
                                 <View key={actividad.id}>
                                     <View style={styles.deFlex}>
-                                        <TouchableOpacity
+                                        {/* <TouchableOpacity
                                             style={styles.icson}
                                             onPress={() => {
                                                 verDetalle(actividad.id);
                                             }}
                                         >
                                             <Text style={styles.detalle}>Ver Detalles</Text>
-                                        </TouchableOpacity>
-                                        <View style={styles.deFlex2}>
+                                        </TouchableOpacity> */}
+                                        {/* <View style={styles.deFlex2}>
                                             <TouchableOpacity
                                                 style={styles.iscon}
                                                 onPress={() =>
@@ -272,33 +272,44 @@ export default function Actividades() {
                                             >
                                                 <MaterialIcons name="delete" size={18} color="#CB6CE6" />
                                             </TouchableOpacity>
-                                        </View>
+                                        </View> */}
                                     </View>
-                                    <View style={styles.actividadContainer}>
-                                        <MaterialCommunityIcons
-                                            style={styles.icon}
-                                            name="bank-transfer"
-                                            size={24}
-                                            color='#CB6CE6'
-                                        />
-                                        <View style={styles.deRow}>
-                                            <Text style={styles.Date}>
-                                                {new Date(actividad.createdAt).toLocaleString()}
-                                            </Text>
-                                            {actividad.descripcion.length > 16 ? (
-                                                <Text style={styles.descripcion}>{actividad.descripcion.slice(0, 16)}..</Text>
-                                            ) : (
-                                                <Text style={styles.descripcion}>{actividad.descripcion}</Text>
-                                            )}
+
+                                    <TouchableOpacity
+                                        style={styles.icson}
+                                        onPress={() => {
+                                            verDetalle(actividad.id);
+                                        }}
+                                    >
+
+
+                                        <View style={styles.actividadContainer}>
+                                            <MaterialCommunityIcons
+                                                style={styles.icon}
+                                                name="bank-transfer"
+                                                size={24}
+                                                color='#CB6CE6'
+                                            />
+                                            <View style={styles.deRow}>
+                                                <Text style={styles.Date}>
+                                                    {new Date(actividad.createdAt).toLocaleString()}
+                                                </Text>
+                                                {actividad.descripcion.length > 16 ? (
+                                                    <Text style={styles.descripcion}>{actividad.descripcion.slice(0, 16)}..</Text>
+                                                ) : (
+                                                    <Text style={styles.descripcion}>{actividad.descripcion}</Text>
+                                                )}
+                                            </View>
+                                            <View style={styles.monto}>
+                                                <Text style={{ color: actividad?.categoria === 'Ingreso' ? 'green' : 'red' }}>
+                                                    {actividad.categoria === 'Egreso'}
+                                                    $ {actividad.monto.toLocaleString().slice(0, 14)}
+                                                </Text>
+                                            </View>
                                         </View>
-                                        <View style={styles.monto}>
-                                            <Text style={{ color: actividad?.categoria === 'Ingreso' ? 'green' : 'red' }}>
-                                                {actividad.categoria === 'Egreso'}
-                                                $ {actividad.monto.toLocaleString().slice(0, 14)}
-                                            </Text>
-                                        </View>
-                                    </View>
+                                    </TouchableOpacity>
                                 </View>
+
                             ))
                         ) : (
                             <View style={styles.noResultContainer}>
@@ -519,7 +530,7 @@ const styles = StyleSheet.create({
         fontSize: 13
     },
     monto: {
-        marginLeft: 20
+        marginLeft: 40
     },
     descripcion: {
         fontSize: 14,
