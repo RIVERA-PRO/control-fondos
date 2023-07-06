@@ -25,6 +25,9 @@ export default function Detail() {
             if (monto.trim() === '' || descripcion.trim() === '') {
                 console.log('Todos los campos son requeridos');
                 setShowAlertError(true);
+                setTimeout(() => {
+                    setShowAlertError(false);
+                }, 600);
                 return;
             }
 

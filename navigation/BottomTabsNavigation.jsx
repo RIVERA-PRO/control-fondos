@@ -16,7 +16,7 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
-
+import PoliticaPrivacidad from "../screens/PoliticaPrivacidad";
 
 const Tab = createBottomTabNavigator();
 
@@ -120,6 +120,8 @@ function BottomTabsNavigation() {
                         height: 53,
                         elevation: 0,
                         position: 'absolute',
+
+
                     },
                     activeTintColor: '#022a9b',
                     inactiveTintColor: '#9B9B9B',
@@ -133,6 +135,7 @@ function BottomTabsNavigation() {
             < Tab.Screen name="NotasScreen"
                 component={NotasScreen}
                 options={{
+                    tabBarButton: () => null, // Ocultar el botón del tab
                     tabBarStyle: {
                         backgroundColor: '#fff',
                         height: 53,
@@ -166,6 +169,23 @@ function BottomTabsNavigation() {
                     ),
                 }} />
 
+            < Tab.Screen name="PoliticaPrivacidad" component={PoliticaPrivacidad}
+                options={{
+                    tabBarButton: () => null, // Ocultar el botón del tab
+                    tabBarStyle: {
+                        backgroundColor: '#fff',
+                        height: 53,
+                        elevation: 0,
+                        position: 'absolute',
+                    },
+                    activeTintColor: '#022a9b',
+                    inactiveTintColor: '#9B9B9B',
+                    headerShown: false,
+                    tabBarLabel: 'PoliticaPrivacidad',
+                    tabBarIcon: ({ color }) => (
+                        <FontAwesome name="info" size={24} color={color} />
+                    ),
+                }} />
 
 
 

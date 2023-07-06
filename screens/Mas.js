@@ -66,6 +66,9 @@ export default function Mas() {
         if (monto === '' || descripcion === '') {
             console.log('Todos los campos son requeridos');
             setShowAlertError(true);
+            setTimeout(() => {
+                setShowAlertError(false);
+            }, 600);
             return;
         }
 
@@ -91,6 +94,9 @@ export default function Mas() {
             setMonto('');
             setDescripcion('');
             setShowAlert(true);
+            setTimeout(() => {
+                setShowAlert(false);
+            }, 600);
         } catch (error) {
             console.log('Error al guardar la actividad:', error);
         }

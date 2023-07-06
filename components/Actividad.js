@@ -263,12 +263,12 @@ const styles = StyleSheet.create({
         marginTop: 2
     },
     Agregar: {
-        backgroundColor: '#022a9b',
+        backgroundColor: '#1FC2D7',
         borderRadius: 100,
         textAlign: 'center',
         justifyContent: 'center',
         alignItems: 'center',
-        width: 110,
+        width: 100,
         padding: 4,
         gap: 5,
         marginTop: 20

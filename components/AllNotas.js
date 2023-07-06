@@ -46,10 +46,7 @@ export default function AllNotas() {
             const notasGuardadas = await AsyncStorage.getItem('notas');
             if (notasGuardadas) {
                 const notasParseadas = JSON.parse(notasGuardadas);
-                const notasOrdenadas = notasParseadas.sort((a, b) => {
-                    // Compara las fechas de creación de las notas para ordenarlas de forma descendente
-                    return new Date(b.fechaCreacion) - new Date(a.fechaCreacion);
-                });
+                const notasOrdenadas = notasParseadas.reverse()
 
                 setNotas(notasOrdenadas);
             }
@@ -71,7 +68,7 @@ export default function AllNotas() {
             const notasGuardadas = await AsyncStorage.getItem('notas');
             if (notasGuardadas) {
                 const notasParseadas = JSON.parse(notasGuardadas);
-                const nuevasNotas = notasParseadas.map((nota) => {
+                const nuevasNotas = notasParseadas.reverse().map((nota) => {
                     if (nota.id === editNotaId) {
                         return {
                             ...nota,
@@ -261,6 +258,20 @@ export default function AllNotas() {
 
                 </ScrollView>
             </Modal>
+            <View style={styles.seccion}>
+
+                <Text style={styles.text}>
+
+                </Text>
+
+            </View>
+            <View style={styles.seccion}>
+
+                <Text style={styles.text}>
+
+                </Text>
+
+            </View>
         </View>
     )
 }

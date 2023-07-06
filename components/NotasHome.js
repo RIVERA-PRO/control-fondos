@@ -46,10 +46,7 @@ export default function NotasHome() {
             const notasGuardadas = await AsyncStorage.getItem('notas');
             if (notasGuardadas) {
                 const notasParseadas = JSON.parse(notasGuardadas);
-                const notasOrdenadas = notasParseadas.sort((a, b) => {
-                    // Compara las fechas de creación de las notas para ordenarlas de forma descendente
-                    return new Date(b.fechaCreacion) - new Date(a.fechaCreacion);
-                });
+                const notasOrdenadas = notasParseadas.reverse()
 
                 setNotas(notasOrdenadas);
             }
@@ -137,8 +134,15 @@ export default function NotasHome() {
     if (notas.length === 0) {
         return (
 
-            <Text style={styles.noHay}>No hay Notas</Text>
-
+            <View style={styles.scrollContainerSinActividad}>
+                <Text >No hay Notas</Text>
+                <TouchableOpacity
+                    style={styles.Agregar}
+                    onPress={goNotas}
+                >
+                    <Text style={styles.buttosnText}>Agregar </Text>
+                </TouchableOpacity>
+            </View>
 
 
         )
@@ -158,7 +162,7 @@ export default function NotasHome() {
             </View>
 
             <View style={styles.notasContainer}>
-                {notas.slice(0, 6).map((nota, index) => (
+                {notas.slice(0, 5).map((nota, index) => (
                     <TouchableOpacity
                         style={[styles.nota, { backgroundColor: colores[index % colores.length] }]}
                         key={nota.id}
@@ -276,6 +280,15 @@ export default function NotasHome() {
     )
 }
 const styles = StyleSheet.create({
+    scrollContainerSinActividad: {
+        flexGrow: 1,
+        paddingTop: 10,
+        height: 375,
+        justifyContent: 'center',
+        alignItems: 'center'
+
+
+    },
     notasContainer: {
 
 
@@ -389,11 +402,33 @@ const styles = StyleSheet.create({
         color: '#fff',
         fontSize: 16
     },
+    noHayContain: {
+        flexDirection: 'column',
+        justifyContent: 'center',
+        textAlign: 'center',
+        alignItems: 'center'
+    },
+    Agregar: {
+        backgroundColor: '#1FC2D7',
+        borderRadius: 100,
+        textAlign: 'center',
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: 100,
+        padding: 4,
+        gap: 5,
+        marginTop: 20
+    },
+    buttosnText: {
+
+        color: '#fff',
+
+    },
     noHay: {
         flexGrow: 1,
         textAlign: 'center',
         justifyContent: 'center',
-        paddingTop: 200
+        paddingTop: 100
     },
     deFlex2: {
         flexDirection: 'row',

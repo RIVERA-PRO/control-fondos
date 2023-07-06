@@ -160,6 +160,7 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.25,
         shadowRadius: 3,
         elevation: 3,
-        marginTop: -30
+        marginTop: -33,
+
     }
 });

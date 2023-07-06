@@ -33,7 +33,10 @@ export default function Header() {
         navigation.navigate('NotasScreen');
         setModalVisible(!isModalVisible);
     };
-
+    const goToPoliticaPrivacidad = () => {
+        navigation.navigate('PoliticaPrivacidad');
+        setModalVisible(!isModalVisible);
+    };
 
     const openLinkedInProfile = () => {
         const linkedInURL = 'https://www.linkedin.com/in/juan-rivera-9ba866215/'; // Reemplaza con tu URL de LinkedIn
@@ -118,6 +121,11 @@ export default function Header() {
                                     <MaterialIcons name="description" size={20} color='#CB6CE6' />
 
                                     <Text style={styles.buttonText}>Notas</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity onPress={goToPoliticaPrivacidad} style={styles.btnNav}>
+                                    <MaterialIcons name="privacy-tip" size={20} color='#CB6CE6' />
+
+                                    <Text style={styles.buttonText}>Politica y privacidad</Text>
                                 </TouchableOpacity>
                                 <TouchableOpacity onPress={toggleModal} style={styles.btnNav}>
                                     <MaterialIcons name="logout" size={20} color="#CB6CE6" />
@@ -258,6 +266,6 @@ const styles = StyleSheet.create({
     },
     text: {
         textAlign: 'center',
-        marginTop: 200
+        marginTop: 160
     }
 });

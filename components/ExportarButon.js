@@ -53,9 +53,9 @@ export default function ExportarButon() {
             // Convertir las actividades a una matriz de objetos planos
             const actividadesArray = parsedActividades.map(actividad => ({
                 Id: actividad.id,
-                Categoria: actividad.categoria,
                 Tipo: actividad.tipo,
-                Monto: actividad.monto,
+                Categoria: actividad.categoria,
+                Monto: `$ ${actividad.monto}`,
                 Descripcion: actividad.descripcion,
                 Fecha: actividad.createdAt
             }));
@@ -73,7 +73,7 @@ export default function ExportarButon() {
                 Id: '', // Opcional: puedes dejar este campo en blanco
                 Categoria: 'Total de ingresos',
                 Tipo: '',
-                Monto: totalIngresos2,
+                Monto: `$ ${totalIngresos2}`,
                 Descripcion: '',
                 Fecha: ''
             });
@@ -81,7 +81,7 @@ export default function ExportarButon() {
                 Id: '', // Opcional: puedes dejar este campo en blanco
                 Categoria: 'Total de egresos',
                 Tipo: '',
-                Monto: totalEgresos3,
+                Monto: `$ ${totalEgresos3}`,
                 Descripcion: '',
                 Fecha: ''
             });

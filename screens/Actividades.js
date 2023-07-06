@@ -375,6 +375,21 @@ export default function Actividades() {
                         </View>
                     </Modal>
 
+                    <View style={styles.seccion}>
+
+                        <Text style={styles.text}>
+
+                        </Text>
+
+                    </View>
+                    <View style={styles.seccion}>
+
+                        <Text style={styles.text}>
+
+                        </Text>
+
+                    </View>
+
                 </View>
 
             ) : (

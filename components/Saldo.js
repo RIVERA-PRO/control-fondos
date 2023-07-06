@@ -79,7 +79,40 @@ export default function Saldo() {
         <View style={styles.saldoContainer}>
             <View style={styles.containerSaldo}>
                 {actividades.length === 0 ? (
-                    <Text style={styles.agregarActividades}>Agregar actividades</Text>
+                    <>
+                        <View style={styles.deFlex}>
+                            <Text style={styles.total}>
+                                $ {obtenerSaldoTotal().toLocaleString()}
+                            </Text>
+                            <TouchableOpacity onPress={recargarComponente} style={styles.button}>
+                                <Icon name="refresh" size={20} color="#CB6CE6" />
+                            </TouchableOpacity>
+                        </View>
+                        <View style={styles.deFlex2}>
+                            <TouchableOpacity
+                                onPress={() => abrirModal('ingresos')}
+                                style={styles.totalnumber}
+                            >
+                                <Entypo name="log-out" style={styles.icon2} size={11} color='#CB6CE6' />
+                                <Text style={styles.sumaIngresos}>
+                                    + ${sumaIngresos.toLocaleString()}
+                                </Text>
+
+                            </TouchableOpacity>
+
+                            <TouchableOpacity
+                                onPress={() => abrirModal('egresos')}
+                                style={styles.totalnumber}
+                            >
+                                <Entypo name="log-out" style={styles.icon2} size={11} color='#CB6CE6' />
+                                <Text style={styles.sumaEgresos}>
+                                    - ${sumaEgresos.toLocaleString()}
+                                </Text>
+
+                            </TouchableOpacity>
+
+                        </View>
+                    </>
                 ) : (
                     <>
                         <View style={styles.deFlex}>
@@ -198,12 +231,28 @@ export default function Saldo() {
                                         ${sumaEgresos.toLocaleString()}
                                     </Text>
                                 </View>
+
                             </View>
 
                         )}
 
                     </View>
+                    <View style={styles.seccion}>
+
+                        <Text style={styles.text}>
+
+                        </Text>
+
+                    </View>
+                    <View style={styles.seccion}>
+
+                        <Text style={styles.text}>
+
+                        </Text>
+
+                    </View>
                 </ScrollView>
+
             </Modal>
 
 
