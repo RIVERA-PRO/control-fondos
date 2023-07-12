@@ -7,7 +7,7 @@ import {
     TextInput,
     Button,
     TouchableOpacity,
-    Animated
+
 
 } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
@@ -20,7 +20,8 @@ import { LinearGradient } from 'expo-linear-gradient';
 import Notas from '../components/Notas';
 import AllNotas from '../components/AllNotas';
 import { useNavigation } from '@react-navigation/native';
-
+import { Animated, Easing } from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
 export default function NotasScreen() {
     const navigation = useNavigation();
     const [showHomeComponent, setShowHomeComponent] = useState(true);
@@ -30,6 +31,30 @@ export default function NotasScreen() {
     const [homeTranslateY] = useState(new Animated.Value(100));
     const [actividadTranslateY] = useState(new Animated.Value(100));
 
+    const [animationValue] = useState(new Animated.Value(0));
+    const startAnimation = () => {
+        Animated.timing(animationValue, {
+            toValue: 1,
+            duration: 300,
+            easing: Easing.linear,
+            useNativeDriver: true,
+        }).start();
+    };
+
+    useFocusEffect(
+        React.useCallback(() => {
+            startAnimation();
+            return () => {
+                // Reinicia la animación cuando la pantalla pierde el foco
+                animationValue.setValue(0);
+            };
+        }, [])
+    );
+
+    const translateY = animationValue.interpolate({
+        inputRange: [0, 1],
+        outputRange: [200, 0], // Inicia desde 200 unidades hacia abajo y se desplaza hacia arriba
+    });
     useEffect(() => {
         animateComponent(showHomeComponent, homeOpacity, homeTranslateY);
         animateComponent(showActividad, actividadOpacity, actividadTranslateY);
@@ -86,14 +111,16 @@ export default function NotasScreen() {
                         </View>
                     </View>
                 </LinearGradient>
+                <Animated.View style={[{ transform: [{ translateY }] }]}>
 
-                <Animated.View style={[styles.componentContainer, { opacity: homeOpacity, transform: [{ translateY: homeTranslateY }] }]}>
-                    {showHomeComponent && <AllNotas />}
-                </Animated.View>
-                <Animated.View style={[styles.componentContainer, { opacity: actividadOpacity, transform: [{ translateY: actividadTranslateY }] }]}>
-                    {showActividad && <Notas />}
-                </Animated.View>
 
+                    <Animated.View style={[styles.componentContainer, { opacity: homeOpacity, transform: [{ translateY: homeTranslateY }] }]}>
+                        {showHomeComponent && <AllNotas />}
+                    </Animated.View>
+                    <Animated.View style={[styles.componentContainer, { opacity: actividadOpacity, transform: [{ translateY: actividadTranslateY }] }]}>
+                        {showActividad && <Notas />}
+                    </Animated.View>
+                </Animated.View>
 
             </ScrollView>
         </View>

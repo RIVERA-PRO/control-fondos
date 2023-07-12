@@ -44,8 +44,8 @@ function BottomTabsNavigation() {
                     fontSize: 11,
                     marginBottom: 3,
                 },
-                activeTintColor: '#1FC2D7',
-                inactiveTintColor: 'rgba(0, 0, 0, 0.6)',
+                activeTintColor: '#fff',
+                inactiveTintColor: 'rgba(255, 255, 255, 0.8)',
 
 
             }}>
@@ -54,10 +54,13 @@ function BottomTabsNavigation() {
                 component={Home}
                 options={{
                     tabBarStyle: {
-                        backgroundColor: '#fff',
+                        backgroundColor: '#1FC2D7',
                         height: 53,
                         elevation: 0,
                         position: 'absolute',
+                        borderRadius: 30,
+                        marginBottom: 10,
+                        margin: 10
 
 
                     },
@@ -80,30 +83,34 @@ function BottomTabsNavigation() {
                     tabBarIcon: ({ focused, color, size }) => (
                         <View
                             style={{
-                                top: Platform.OS === "ios" ? -30 : -30,
-                                width: Platform.OS === "ios" ? 50 : 60,
-                                height: Platform.OS === "ios" ? 50 : 60,
+                                top: Platform.OS === "ios" ? -10 : -10,
+                                width: Platform.OS === "ios" ? 45 : 55,
+                                height: Platform.OS === "ios" ? 45 : 55,
                                 borderRadius: Platform.OS === "ios" ? 25 : 30,
                                 position: 'absolute',
                                 bottom: 10,
-                                backgroundColor: '#1FC2D7',
+                                backgroundColor: '#fff',
                                 alignItems: 'center',
                                 justifyContent: 'center',
-                                shadowColor: '#1FC2D7',
+                                shadowColor: '#000',
                                 shadowOffset: { width: 10, height: 20 },
                                 shadowOpacity: 10.25,
                                 shadowRadius: 300,
                                 elevation: 7,
+
                             }}
                         >
-                            <Feather name="plus" size={30} color="#fff" />
+                            <Feather name="plus" size={30} color="#1FC2D7" />
                         </View>
                     ),
                     tabBarStyle: {
-                        backgroundColor: '#fff',
+                        backgroundColor: '#1FC2D7',
                         height: 53,
                         elevation: 0,
                         position: 'absolute',
+                        borderRadius: 30,
+                        marginBottom: 10,
+                        margin: 10
                     },
                     activeTintColor: '#022a9b',
                     inactiveTintColor: '#9B9B9B',
@@ -116,10 +123,13 @@ function BottomTabsNavigation() {
                 component={Actividades}
                 options={{
                     tabBarStyle: {
-                        backgroundColor: '#fff',
+                        backgroundColor: '#1FC2D7',
                         height: 53,
                         elevation: 0,
                         position: 'absolute',
+                        borderRadius: 30,
+                        marginBottom: 10,
+                        margin: 10
 
 
                     },
@@ -137,10 +147,13 @@ function BottomTabsNavigation() {
                 options={{
                     tabBarButton: () => null, // Ocultar el botón del tab
                     tabBarStyle: {
-                        backgroundColor: '#fff',
+                        backgroundColor: '#1FC2D7',
                         height: 53,
                         elevation: 0,
                         position: 'absolute',
+                        borderRadius: 30,
+                        marginBottom: 10,
+                        margin: 10
                     },
                     activeTintColor: '#022a9b',
                     inactiveTintColor: '#9B9B9B',
@@ -155,10 +168,13 @@ function BottomTabsNavigation() {
                 options={{
                     tabBarButton: () => null, // Ocultar el botón del tab
                     tabBarStyle: {
-                        backgroundColor: '#fff',
+                        backgroundColor: '#1FC2D7',
                         height: 53,
                         elevation: 0,
                         position: 'absolute',
+                        borderRadius: 30,
+                        marginBottom: 10,
+                        margin: 10
                     },
                     activeTintColor: '#022a9b',
                     inactiveTintColor: '#9B9B9B',
@@ -173,10 +189,13 @@ function BottomTabsNavigation() {
                 options={{
                     tabBarButton: () => null, // Ocultar el botón del tab
                     tabBarStyle: {
-                        backgroundColor: '#fff',
+                        backgroundColor: '#1FC2D7',
                         height: 53,
                         elevation: 0,
                         position: 'absolute',
+                        borderRadius: 30,
+                        marginBottom: 10,
+                        margin: 10
                     },
                     activeTintColor: '#022a9b',
                     inactiveTintColor: '#9B9B9B',

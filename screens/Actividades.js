@@ -15,6 +15,8 @@ import { FontAwesome } from '@expo/vector-icons';
 import filtro from '../assets/filtro.png'
 import ExportarButon from '../components/ExportarButon';
 import { LinearGradient } from 'expo-linear-gradient';
+import { Animated, Easing } from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
 export default function Actividades() {
     const navigation = useNavigation();
     const isFocused = useIsFocused();
@@ -30,6 +32,31 @@ export default function Actividades() {
 
     const [mostrarFiltro, setMostrarFiltro] = useState(false);
 
+
+    const [animationValue] = useState(new Animated.Value(0));
+    const startAnimation = () => {
+        Animated.timing(animationValue, {
+            toValue: 1,
+            duration: 300,
+            easing: Easing.linear,
+            useNativeDriver: true,
+        }).start();
+    };
+
+    useFocusEffect(
+        React.useCallback(() => {
+            startAnimation();
+            return () => {
+                // Reinicia la animación cuando la pantalla pierde el foco
+                animationValue.setValue(0);
+            };
+        }, [])
+    );
+
+    const translateY = animationValue.interpolate({
+        inputRange: [0, 1],
+        outputRange: [200, 0], // Inicia desde 200 unidades hacia abajo y se desplaza hacia arriba
+    });
 
     useEffect(() => {
         if (isFocused) {
@@ -229,6 +256,7 @@ export default function Actividades() {
                             </View>
                         )}
                     </LinearGradient>
+
                     <View style={styles.deFlexActividades}>
                         <ExportarButon />
                         <Text style={styles.buttonLength}>{actividades.length}</Text>
@@ -241,15 +269,17 @@ export default function Actividades() {
                         </TouchableOpacity>
                     </View>
 
+                    <Animated.View style={[{ transform: [{ translateY }] }]}>
 
 
 
-                    <ScrollView style={styles.containerActividad}>
-                        {filtrarActividades().length > 0 ? (
-                            filtrarActividades().map((actividad) => (
-                                <View key={actividad.id}>
-                                    <View style={styles.deFlex}>
-                                        {/* <TouchableOpacity
+
+                        <ScrollView style={styles.containerActividad}>
+                            {filtrarActividades().length > 0 ? (
+                                filtrarActividades().map((actividad) => (
+                                    <View key={actividad.id}>
+                                        <View style={styles.deFlex}>
+                                            {/* <TouchableOpacity
                                             style={styles.icson}
                                             onPress={() => {
                                                 verDetalle(actividad.id);
@@ -257,7 +287,7 @@ export default function Actividades() {
                                         >
                                             <Text style={styles.detalle}>Ver Detalles</Text>
                                         </TouchableOpacity> */}
-                                        {/* <View style={styles.deFlex2}>
+                                            {/* <View style={styles.deFlex2}>
                                             <TouchableOpacity
                                                 style={styles.iscon}
                                                 onPress={() =>
@@ -273,52 +303,51 @@ export default function Actividades() {
                                                 <MaterialIcons name="delete" size={18} color="#CB6CE6" />
                                             </TouchableOpacity>
                                         </View> */}
+                                        </View>
+
+                                        <TouchableOpacity
+                                            style={styles.icson}
+                                            onPress={() => {
+                                                verDetalle(actividad.id);
+                                            }}
+                                        >
+
+
+                                            <View style={styles.actividadContainer}>
+                                                {actividad.categoria === 'Ingreso' ? (
+                                                    <Feather name="arrow-up-right" size={24} color='#CB6CE6' style={styles.icon} />
+                                                ) : (
+                                                    <Feather name="arrow-down-left" size={24} color='#CB6CE6' style={styles.icon} />
+                                                )}
+                                                <View style={styles.deRow}>
+                                                    <Text style={styles.Date}>
+                                                        {new Date(actividad.createdAt).toLocaleString()}
+                                                    </Text>
+                                                    {actividad.descripcion.length > 16 ? (
+                                                        <Text style={styles.descripcion}>{actividad.descripcion.slice(0, 16)}..</Text>
+                                                    ) : (
+                                                        <Text style={styles.descripcion}>{actividad.descripcion}</Text>
+                                                    )}
+                                                </View>
+                                                <View style={styles.monto}>
+                                                    <Text style={{ color: actividad?.categoria === 'Ingreso' ? 'green' : 'red' }}>
+                                                        {actividad.categoria === 'Egreso'}
+                                                        $ {actividad.monto.toLocaleString().slice(0, 14)}
+                                                    </Text>
+                                                </View>
+                                            </View>
+                                        </TouchableOpacity>
                                     </View>
 
-                                    <TouchableOpacity
-                                        style={styles.icson}
-                                        onPress={() => {
-                                            verDetalle(actividad.id);
-                                        }}
-                                    >
+                                ))
+                            ) : (
+                                <View style={styles.noResultContainer}>
+                                    <Text style={styles.noResultText}>No hay resultados</Text>
 
-
-                                        <View style={styles.actividadContainer}>
-                                            <MaterialCommunityIcons
-                                                style={styles.icon}
-                                                name="bank-transfer"
-                                                size={24}
-                                                color='#CB6CE6'
-                                            />
-                                            <View style={styles.deRow}>
-                                                <Text style={styles.Date}>
-                                                    {new Date(actividad.createdAt).toLocaleString()}
-                                                </Text>
-                                                {actividad.descripcion.length > 16 ? (
-                                                    <Text style={styles.descripcion}>{actividad.descripcion.slice(0, 16)}..</Text>
-                                                ) : (
-                                                    <Text style={styles.descripcion}>{actividad.descripcion}</Text>
-                                                )}
-                                            </View>
-                                            <View style={styles.monto}>
-                                                <Text style={{ color: actividad?.categoria === 'Ingreso' ? 'green' : 'red' }}>
-                                                    {actividad.categoria === 'Egreso'}
-                                                    $ {actividad.monto.toLocaleString().slice(0, 14)}
-                                                </Text>
-                                            </View>
-                                        </View>
-                                    </TouchableOpacity>
                                 </View>
-
-                            ))
-                        ) : (
-                            <View style={styles.noResultContainer}>
-                                <Text style={styles.noResultText}>No hay resultados</Text>
-
-                            </View>
-                        )}
-                    </ScrollView>
-
+                            )}
+                        </ScrollView>
+                    </Animated.View>
                     <Modal
                         visible={editModalVisible}
                         animationType="slide"

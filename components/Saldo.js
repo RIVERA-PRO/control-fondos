@@ -9,6 +9,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
 import { Foundation } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
+import { Feather } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 export default function Saldo() {
     const [actividades, setActividades] = useState([]);
@@ -128,7 +129,8 @@ export default function Saldo() {
                                 onPress={() => abrirModal('ingresos')}
                                 style={styles.totalnumber}
                             >
-                                <Entypo name="log-out" style={styles.icon2} size={11} color='#CB6CE6' />
+
+                                <Feather name="arrow-up-right" size={13} color='#CB6CE6' style={styles.icon2} />
                                 <Text style={styles.sumaIngresos}>
                                     + ${sumaIngresos.toLocaleString()}
                                 </Text>
@@ -139,7 +141,7 @@ export default function Saldo() {
                                 onPress={() => abrirModal('egresos')}
                                 style={styles.totalnumber}
                             >
-                                <Entypo name="log-out" style={styles.icon2} size={11} color='#CB6CE6' />
+                                <Feather name="arrow-down-left" size={13} color='#CB6CE6' style={styles.icon2} />
                                 <Text style={styles.sumaEgresos}>
                                     - ${sumaEgresos.toLocaleString()}
                                 </Text>
@@ -182,7 +184,7 @@ export default function Saldo() {
                                 {actividadesIngresos.map((actividad) => (
                                     <View style={styles.actividadContainer}>
                                         <View style={styles.deFlexActivity}>
-                                            <MaterialCommunityIcons style={styles.icon2} name="bank-transfer" size={24} color='#CB6CE6' />
+                                            <Feather name="arrow-up-right" size={24} color='#CB6CE6' style={styles.icon2} />
                                             {actividad.descripcion.length > 20 ? (
                                                 <Text style={styles.descripcion}>{actividad.descripcion.slice(0, 20)}..</Text>
                                             ) : (
@@ -195,7 +197,11 @@ export default function Saldo() {
                                     </View>
                                 ))}
                                 <View style={styles.totalResult}>
-                                    <Text style={styles.totalText}> Total </Text>
+
+                                    <View style={styles.deFlex}>
+                                        <FontAwesome name="dollar" size={20} color='#CB6CE6' style={styles.icon} />
+                                        <Text style={styles.totalText}> Total </Text>
+                                    </View>
                                     <Text style={styles.sumaIngresos}>
                                         ${sumaIngresos.toLocaleString()}
                                     </Text>
@@ -212,7 +218,7 @@ export default function Saldo() {
                                 {actividadesEgresos.map((actividad) => (
                                     <View style={styles.actividadContainer}>
                                         <View style={styles.deFlexActivity}>
-                                            <MaterialCommunityIcons style={styles.icon2} name="bank-transfer" size={24} color='#CB6CE6' />
+                                            <Feather name="arrow-down-left" size={24} color='#CB6CE6' style={styles.icon2} />
                                             {actividad.descripcion.length > 20 ? (
                                                 <Text style={styles.descripcion}>{actividad.descripcion.slice(0, 20)}..</Text>
                                             ) : (
@@ -226,7 +232,10 @@ export default function Saldo() {
 
                                 ))}
                                 <View style={styles.totalResult}>
-                                    <Text style={styles.totalText}> Total </Text>
+                                    <View style={styles.deFlex}>
+                                        <FontAwesome name="dollar" size={20} color='#CB6CE6' style={styles.icon} />
+                                        <Text style={styles.totalText}> Total </Text>
+                                    </View>
                                     <Text style={styles.sumaEgresos}>
                                         ${sumaEgresos.toLocaleString()}
                                     </Text>
@@ -369,9 +378,13 @@ const styles = StyleSheet.create({
     },
     icon: {
 
-
-        borderRadius: 8,
-        padding: 4
+        backgroundColor: 'rgba(203, 108, 230, 0.1)',
+        borderRadius: 4,
+        padding: 4,
+        width: 32,
+        height: 32,
+        textAlign: 'center',
+        marginLeft: 4
     },
     totalResult: {
         margin: 20,
@@ -380,7 +393,9 @@ const styles = StyleSheet.create({
     },
     totalText: {
         fontWeight: '600',
-        fontSize: 15
+        fontSize: 15,
+        color: 'rgba(0, 0, 0, 0.8)',
+        marginLeft: 15
     },
     sumaIngresosText: {
         fontSize: 20,
@@ -391,8 +406,8 @@ const styles = StyleSheet.create({
         color: 'red'
     },
     icon2: {
-
         backgroundColor: 'rgba(203, 108, 230, 0.1)',
+
         borderRadius: 4,
         padding: 4
     },

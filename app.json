@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Money-Minder",
-    "slug": "Money-Minder",
+    "slug": "control-fondos",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",

@@ -8,6 +8,8 @@ import * as FileSystem from 'expo-file-system';
 import * as Sharing from 'expo-sharing';
 import XLSX from 'xlsx';
 import { AntDesign } from '@expo/vector-icons';
+import { Feather } from '@expo/vector-icons';
+
 export default function Actividad() {
     const isFocused = useIsFocused();
     const [actividades, setActividades] = useState([]);
@@ -151,6 +153,9 @@ export default function Actividad() {
                 </TouchableOpacity>
 
             </View>
+
+
+
             {actividades.slice(0, 6).map((actividad) => (
                 <TouchableOpacity
                     style={styles.icson}
@@ -159,8 +164,15 @@ export default function Actividad() {
                     }}
                 >
                     <View key={actividad.id} style={styles.actividadContainer}>
-                        <MaterialCommunityIcons style={styles.icon} name="bank-transfer" size={24} color='#CB6CE6' />
 
+
+
+
+                        {actividad.categoria === 'Ingreso' ? (
+                            <Feather name="arrow-up-right" size={24} color='#CB6CE6' style={styles.icon} />
+                        ) : (
+                            <Feather name="arrow-down-left" size={24} color='#CB6CE6' style={styles.icon} />
+                        )}
                         <View style={styles.deRow}>
                             <Text style={styles.Date}>{new Date(actividad.createdAt).toLocaleString()}</Text>
                             {actividad.descripcion.length > 16 ? (

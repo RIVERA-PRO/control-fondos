@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { View, StyleSheet, ImageBackground, ScrollView, Text, TouchableOpacity, Animated } from 'react-native';
+import { View, StyleSheet, ImageBackground, ScrollView, Text, TouchableOpacity, } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { LinearGradient } from 'expo-linear-gradient';
 import Header from '../components/Header';
@@ -8,6 +8,8 @@ import Actividad from '../components/Actividad';
 import Saldo from '../components/Saldo';
 import { AntDesign } from '@expo/vector-icons';
 import NotasHome from '../components/NotasHome';
+import { Animated, Easing } from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
 export default function Home() {
     const navigation = useNavigation();
     const [showHomeComponent, setShowHomeComponent] = useState(true);
@@ -17,6 +19,32 @@ export default function Home() {
     const [homeTranslateY] = useState(new Animated.Value(100));
     const [actividadTranslateY] = useState(new Animated.Value(100));
 
+
+
+    const [animationValue] = useState(new Animated.Value(0));
+    const startAnimation = () => {
+        Animated.timing(animationValue, {
+            toValue: 1,
+            duration: 300,
+            easing: Easing.linear,
+            useNativeDriver: true,
+        }).start();
+    };
+
+    useFocusEffect(
+        React.useCallback(() => {
+            startAnimation();
+            return () => {
+                // Reinicia la animación cuando la pantalla pierde el foco
+                animationValue.setValue(0);
+            };
+        }, [])
+    );
+
+    const translateY = animationValue.interpolate({
+        inputRange: [0, 1],
+        outputRange: [200, 0], // Inicia desde 200 unidades hacia abajo y se desplaza hacia arriba
+    });
     useEffect(() => {
         animateComponent(showHomeComponent, homeOpacity, homeTranslateY);
         animateComponent(showActividad, actividadOpacity, actividadTranslateY);
@@ -57,6 +85,7 @@ export default function Home() {
 
                 <LinearGradient colors={['#1FC2D7', '#CB6CE6',]} style={styles.container} start={{ x: 0, y: 0 }}
                     end={{ x: 1, y: 0 }}>
+
                     <View style={styles.buttonContainer}>
                         <View style={styles.buttonBtns}>
                             <TouchableOpacity
@@ -73,14 +102,17 @@ export default function Home() {
                             </TouchableOpacity>
                         </View>
                     </View>
-                </LinearGradient>
-                <Saldo />
 
-                <Animated.View style={[styles.componentContainer, { opacity: homeOpacity, transform: [{ translateY: homeTranslateY }] }]}>
-                    {showHomeComponent && <Actividad />}
-                </Animated.View>
-                <Animated.View style={[styles.componentContainer2, { opacity: actividadOpacity, transform: [{ translateY: actividadTranslateY }] }]}>
-                    {showActividad && <NotasHome />}
+                </LinearGradient>
+                <Animated.View style={[{ transform: [{ translateY }] }]}>
+                    <Saldo />
+
+                    <Animated.View style={[styles.componentContainer, { opacity: homeOpacity, transform: [{ translateY: homeTranslateY }] }]}>
+                        {showHomeComponent && <Actividad />}
+                    </Animated.View>
+                    <Animated.View style={[styles.componentContainer2, { opacity: actividadOpacity, transform: [{ translateY: actividadTranslateY }] }]}>
+                        {showActividad && <NotasHome />}
+                    </Animated.View>
                 </Animated.View>
             </ScrollView>
 

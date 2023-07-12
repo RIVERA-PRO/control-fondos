@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, Image, Text, TouchableOpacity, Modal, } from 'react-native';
+import { View, StyleSheet, Image, Text, TouchableOpacity, } from 'react-native';
 import logo from '../assets/logo.png';
 import { useNavigation } from '@react-navigation/native';
 import image from '../assets/Cloud.png'
@@ -10,6 +10,7 @@ import { Linking } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { LinearGradient } from 'expo-linear-gradient';
+import Modal from 'react-native-modal';
 export default function Header() {
 
     const [isModalVisible, setModalVisible] = useState(false);
@@ -93,65 +94,68 @@ export default function Header() {
                 </TouchableOpacity>
                 <Modal
                     visible={isModalVisible}
-                    animationType="slide"
-                    transparent={true}
-                    onRequestClose={toggleModal}
+                    animationIn="slideInLeft"
+                    animationOut="slideOutLeft"
+                    swipeDirection="left"
+                    onSwipeComplete={toggleModal}
+                    onBackdropPress={toggleModal}
                     presentationStyle="overFullScreen"
-                    from="left"
+
+                    style={styles.modal}
                 >
 
-                    <View style={styles.modalContainer} onPress={toggleModal}>
-                        <View style={styles.modalContent} >
 
-                            <Image source={image} style={styles.img} />
-                            <View style={styles.navBtns}>
-                                <TouchableOpacity onPress={goToHome} style={styles.btnNav}>
-                                    <FontAwesome name="home" size={20} color='#CB6CE6' />
-                                    <Text style={styles.buttonText}>Home</Text>
+                    <View style={styles.modalContent} >
+
+                        <Image source={image} style={styles.img} />
+                        <View style={styles.navBtns}>
+                            <TouchableOpacity onPress={goToHome} style={styles.btnNav}>
+                                <FontAwesome name="home" size={20} color='#CB6CE6' />
+                                <Text style={styles.buttonText}>Home</Text>
+                            </TouchableOpacity>
+
+
+                            <TouchableOpacity onPress={goToActividades} style={styles.btnNav}>
+
+                                <MaterialCommunityIcons name="bank-transfer" size={22} color='#CB6CE6' />
+                                <Text style={styles.buttonText}>Actividades</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={goToNotas} style={styles.btnNav}>
+
+                                <MaterialIcons name="description" size={20} color='#CB6CE6' />
+
+                                <Text style={styles.buttonText}>Notas</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={goToPoliticaPrivacidad} style={styles.btnNav}>
+                                <MaterialIcons name="privacy-tip" size={20} color='#CB6CE6' />
+
+                                <Text style={styles.buttonText}>Politica y privacidad</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={toggleModal} style={styles.btnNav}>
+                                <MaterialIcons name="logout" size={20} color="#CB6CE6" />
+                                <Text style={styles.buttonText}>Cerrar</Text>
+                            </TouchableOpacity>
+
+                            <Text style={styles.text}>Contacto del desarrollador</Text>
+                            <View style={styles.social}>
+                                <TouchableOpacity onPress={openLinkedInProfile} style={styles.btnNav}>
+                                    <FontAwesome name="linkedin" size={20} color="#CB6CE6" />
+
                                 </TouchableOpacity>
+                                <TouchableOpacity onPress={openWebsite} style={styles.btnNav}>
+                                    <FontAwesome name="globe" size={20} color="#CB6CE6" />
 
-
-                                <TouchableOpacity onPress={goToActividades} style={styles.btnNav}>
-
-                                    <MaterialCommunityIcons name="bank-transfer" size={22} color='#CB6CE6' />
-                                    <Text style={styles.buttonText}>Actividades</Text>
                                 </TouchableOpacity>
-                                <TouchableOpacity onPress={goToNotas} style={styles.btnNav}>
+                                <TouchableOpacity onPress={openWhatsAppChat} style={styles.btnNav}>
+                                    <FontAwesome name="whatsapp" size={20} color="#CB6CE6" />
 
-                                    <MaterialIcons name="description" size={20} color='#CB6CE6' />
-
-                                    <Text style={styles.buttonText}>Notas</Text>
                                 </TouchableOpacity>
-                                <TouchableOpacity onPress={goToPoliticaPrivacidad} style={styles.btnNav}>
-                                    <MaterialIcons name="privacy-tip" size={20} color='#CB6CE6' />
-
-                                    <Text style={styles.buttonText}>Politica y privacidad</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity onPress={toggleModal} style={styles.btnNav}>
-                                    <MaterialIcons name="logout" size={20} color="#CB6CE6" />
-                                    <Text style={styles.buttonText}>Cerrar</Text>
-                                </TouchableOpacity>
-
-                                <Text style={styles.text}>Contacto del desarrollador</Text>
-                                <View style={styles.social}>
-                                    <TouchableOpacity onPress={openLinkedInProfile} style={styles.btnNav}>
-                                        <FontAwesome name="linkedin" size={20} color="#CB6CE6" />
-
-                                    </TouchableOpacity>
-                                    <TouchableOpacity onPress={openWebsite} style={styles.btnNav}>
-                                        <FontAwesome name="globe" size={20} color="#CB6CE6" />
-
-                                    </TouchableOpacity>
-                                    <TouchableOpacity onPress={openWhatsAppChat} style={styles.btnNav}>
-                                        <FontAwesome name="whatsapp" size={20} color="#CB6CE6" />
-
-                                    </TouchableOpacity>
-                                </View>
                             </View>
-
-
                         </View>
+
+
                     </View>
+
                 </Modal>
             </View>
         </LinearGradient>
@@ -267,5 +271,9 @@ const styles = StyleSheet.create({
     text: {
         textAlign: 'center',
         marginTop: 160
+    },
+    modal: {
+        margin: 0,
+        backgroundColor: '#000',
     }
 });
