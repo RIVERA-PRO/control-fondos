@@ -321,7 +321,6 @@ const styles = StyleSheet.create({
         elevation: 3,
         height: 320
     },
-
     componentContain2: {
         padding: 10,
         backgroundColor: '#fff',
