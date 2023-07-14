@@ -11,6 +11,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { LinearGradient } from 'expo-linear-gradient';
 import Modal from 'react-native-modal';
+
 export default function Header() {
 
     const [isModalVisible, setModalVisible] = useState(false);
@@ -274,6 +275,6 @@ const styles = StyleSheet.create({
     },
     modal: {
         margin: 0,
-        backgroundColor: '#000',
+        backgroundColor: 'rgba(0, 0, 0, 0.3)',
     }
 });

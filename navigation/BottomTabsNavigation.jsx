@@ -5,7 +5,7 @@ import Home from '../screens/Home'
 
 import Detail from '../screens/Detail'
 import Categorias from '../screens/Categorias'
-import Perfil from '../screens/Perfil'
+import Graficas from '../screens/Graficas'
 import Mas from '../screens/Mas'
 import Actividades from '../screens/Actividades'
 import NotasScreen from "../screens/NotasScreen";
@@ -201,6 +201,27 @@ function BottomTabsNavigation() {
                     inactiveTintColor: '#9B9B9B',
                     headerShown: false,
                     tabBarLabel: 'PoliticaPrivacidad',
+                    tabBarIcon: ({ color }) => (
+                        <FontAwesome name="info" size={24} color={color} />
+                    ),
+                }} />
+
+            < Tab.Screen name="Graficas" component={Graficas}
+                options={{
+                    tabBarButton: () => null, // Ocultar el botón del tab
+                    tabBarStyle: {
+                        backgroundColor: '#1FC2D7',
+                        height: 53,
+                        elevation: 0,
+                        position: 'absolute',
+                        borderRadius: 30,
+                        marginBottom: 10,
+                        margin: 10
+                    },
+                    activeTintColor: '#022a9b',
+                    inactiveTintColor: '#9B9B9B',
+                    headerShown: false,
+                    tabBarLabel: 'Graficas',
                     tabBarIcon: ({ color }) => (
                         <FontAwesome name="info" size={24} color={color} />
                     ),

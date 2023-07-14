@@ -11,6 +11,9 @@ import { Foundation } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
+
+import Grafica from './Grafica'
+import Grafica2 from './Grafica2'
 export default function Saldo() {
     const [actividades, setActividades] = useState([]);
     const [sumaIngresos, setSumaIngresos] = useState(0);
@@ -180,7 +183,13 @@ export default function Saldo() {
                                     <Text style={styles.sumaIngresosText}>
                                         ${sumaIngresos.toLocaleString()}
                                     </Text>
+
                                 </View>
+                                <View style={styles.graficaContain} >
+                                    <Grafica />
+                                </View>
+
+
                                 {actividadesIngresos.map((actividad) => (
                                     <View style={styles.actividadContainer}>
                                         <View style={styles.deFlexActivity}>
@@ -214,6 +223,10 @@ export default function Saldo() {
                                     <Text style={styles.sumaEgresosText}>
                                         - ${sumaEgresos.toLocaleString()}
                                     </Text>
+                                </View>
+
+                                <View style={styles.graficaContain} >
+                                    <Grafica2 />
                                 </View>
                                 {actividadesEgresos.map((actividad) => (
                                     <View style={styles.actividadContainer}>
@@ -418,4 +431,7 @@ const styles = StyleSheet.create({
 
 
     },
+    graficaContain: {
+        margin: 20
+    }
 });
